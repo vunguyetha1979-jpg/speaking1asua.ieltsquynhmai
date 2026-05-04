@@ -1,0 +1,1609 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPEAKING 1</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+html,body{margin:0;padding:0;height:100%;font-family:'Quicksand',sans-serif}
+*{box-sizing:border-box}
+:root{--pink:#e91e8c;--blue:#2563eb;--ltpink:#fce4f0;--ltblue:#e0edff;--white:#fff;--dark:#1e293b;--gray:#64748b}
+.scr{overflow-y:auto;height:100%;width:100%;background:linear-gradient(135deg,#e0edff 0%,#fce4f0 50%,#e0edff 100%)}
+.nav-btn{transition:all .2s}
+.nav-btn:hover{transform:translateY(-2px)}
+.nav-btn.active{background:var(--pink);color:#fff;box-shadow:0 4px 15px rgba(233,30,140,.3)}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.06);padding:24px;margin-bottom:16px}
+.topic-card{cursor:pointer;transition:all .25s;border:2px solid transparent}
+.topic-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.1);border-color:var(--pink)}
+.opt-btn{border:2px solid #e2e8f0;border-radius:12px;padding:12px 16px;cursor:pointer;transition:all .2s;background:#fff;text-align:left;width:100%}
+.opt-btn:hover{border-color:var(--blue);background:var(--ltblue)}
+.opt-btn.correct{border-color:#10b981;background:#d1fae5;animation:pop .3s}
+.opt-btn.wrong{border-color:#ef4444;background:#fee2e2;animation:shake .4s}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700}
+.badge-5{background:#fef3c7;color:#92400e}
+.badge-6{background:#d1fae5;color:#065f46}
+.badge-7{background:#ede9fe;color:#5b21b6}
+.hint-box{background:linear-gradient(135deg,var(--ltblue),var(--ltpink));border-radius:12px;padding:16px;border-left:4px solid var(--pink)}
+.vocab-row{display:grid;grid-template-columns:1fr;gap:4px;padding:12px 16px;border-bottom:1px solid #f1f5f9;transition:background .2s}
+.vocab-row:hover{background:var(--ltblue)}
+.rec-btn{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;border:none}
+.rec-btn:hover{transform:scale(1.1)}
+.rec-btn.recording{background:#ef4444!important;animation:pulse-rec 1s infinite}
+@keyframes pulse-rec{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)}50%{box-shadow:0 0 0 12px rgba(239,68,68,0)}}
+.fade-in{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.prog-bar{height:6px;border-radius:3px;background:#e2e8f0;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--pink),var(--blue));transition:width .4s}
+.ipa{color:var(--gray);font-style:italic;font-size:14px}
+b.hl{color:var(--pink);font-weight:700}
+.tag{display:inline-block;padding:1px 8px;border-radius:6px;font-size:11px;font-weight:600;margin-right:4px}
+.tag-n{background:#dbeafe;color:#1e40af}
+.tag-v{background:#fce7f3;color:#9d174d}
+.tag-adj{background:#d1fae5;color:#065f46}
+.collapse-content{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.collapse-content.open{max-height:5000px}
+.fill-input{border:2px dashed var(--blue);border-radius:8px;padding:8px 12px;font-size:16px;outline:none;font-family:'Quicksand',sans-serif;transition:border-color .2s;width:200px}
+.fill-input:focus{border-color:var(--pink)}
+.fill-input.correct{border-color:#10b981;background:#d1fae5}
+.fill-input.wrong{border-color:#ef4444;background:#fee2e2}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="scr" id="app"><!-- HEADER -->
+   <div style="background:linear-gradient(135deg,#2563eb,#e91e8c);padding:20px 24px;color:#fff;text-align:center;position:sticky;top:0;z-index:50">
+    <h1 id="appTitle" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:800;margin:0;letter-spacing:1px">SPEAKING 1</h1>
+    <p style="margin:4px 0 12px;opacity:.85;font-size:14px">IELTS Vocabulary &amp; Speaking Practice</p>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="nav-btn active" onclick="showSection('vocab')" id="nav-vocab" style="padding:8px 18px;border-radius:99px;border:2px solid #fff;font-weight:700;font-size:13px;cursor:pointer;font-family:'Quicksand',sans-serif">📚 Vocabulary</button> <button class="nav-btn" onclick="showSection('speaking')" id="nav-speaking" style="padding:8px 18px;border-radius:99px;border:2px solid #fff;font-weight:700;font-size:13px;cursor:pointer;background:transparent;color:#fff;font-family:'Quicksand',sans-serif">🎤 Speaking</button> <button class="nav-btn" onclick="showSection('list')" id="nav-list" style="padding:8px 18px;border-radius:99px;border:2px solid #fff;font-weight:700;font-size:13px;cursor:pointer;background:transparent;color:#fff;font-family:'Quicksand',sans-serif">📖 Word List</button>
+    </div>
+   </div><!-- SECTIONS -->
+   <div id="sec-vocab" class="fade-in" style="padding:16px;max-width:800px;margin:0 auto"></div>
+   <div id="sec-speaking" class="fade-in" style="padding:16px;max-width:800px;margin:0 auto;display:none"></div>
+   <div id="sec-list" class="fade-in" style="padding:16px;max-width:800px;margin:0 auto;display:none"></div>
+  </div>
+  <script>
+// ============ DATA ============
+const DATA = {
+mirror: {
+  name: "Mirror", emoji: "🪞",
+  vocab: [
+    {word:"look presentable",ipa:"/lʊk prɪˈzentəbl/",pos:"v",vi:"trông gọn gàng",en:"to look neat and tidy",ex:"I always try to look presentable before going out.",coll:"look presentable for work/an interview"},
+    {word:"neat",ipa:"/niːt/",pos:"adj",vi:"gọn gàng, ngăn nắp",en:"tidy and in order",ex:"She always keeps her desk neat.",coll:"neat and tidy, neat appearance"},
+    {word:"tidy",ipa:"/ˈtaɪdi/",pos:"adj",vi:"ngăn nắp",en:"arranged neatly and in order",ex:"His room is always tidy.",coll:"keep tidy, tidy up"},
+    {word:"wrinkled",ipa:"/ˈrɪŋkld/",pos:"adj",vi:"nhăn nheo, nhàu",en:"having small lines or folds",ex:"He noticed his shirt was wrinkled.",coll:"wrinkled clothes/face"},
+    {word:"a compact mirror",ipa:"/ə kəmˈpækt ˈmɪrər/",pos:"n",vi:"gương nhỏ cầm tay",en:"a small portable mirror",ex:"She carries a compact mirror in her bag.",coll:"carry a compact mirror"},
+    {word:"come in handy",ipa:"/kʌm ɪn ˈhændi/",pos:"v",vi:"trở nên hữu ích",en:"to be useful when needed",ex:"A compact mirror can really come in handy.",coll:"come in handy for/when"},
+    {word:"a decorative item",ipa:"/ə ˈdekərətɪv ˈaɪtəm/",pos:"n",vi:"vật trang trí",en:"an object used for decoration",ex:"Mirrors can be used as decorative items.",coll:"decorative item/piece"},
+    {word:"nicely compliment",ipa:"/ˈnaɪsli ˈkɒmplɪment/",pos:"v",vi:"bổ sung, tôn lên vẻ đẹp",en:"to enhance the appearance of",ex:"A large mirror can nicely compliment a living room.",coll:"compliment a room/space"},
+    {word:"give the illusion",ipa:"/ɡɪv ðə ɪˈluːʒən/",pos:"v",vi:"tạo ảo giác",en:"to create a false impression",ex:"Mirrors give the illusion that the space is bigger than it actually is.",coll:"give the illusion of/that"}
+  ],
+  mcq: [
+    {q:"What does 'look presentable' mean?",opts:["Trông mệt mỏi","Trông gọn gàng","Trông buồn cười","Trông già"],ans:1,explain:"'Look presentable' nghĩa là trông gọn gàng, chỉnh tề (quần áo, đầu tóc). Ví dụ: I try to look presentable before meetings."},
+    {q:"What is 'a compact mirror'?",opts:["Gương lớn treo tường","Gương soi toàn thân","Gương nhỏ cầm tay","Gương xe hơi"],ans:2,explain:"'A compact mirror' là gương nhỏ gọn có thể bỏ túi/ví, tiện mang theo."},
+    {q:"'Come in handy' nghĩa là gì?",opts:["Trở nên đắt đỏ","Trở nên hữu ích","Trở nên nguy hiểm","Trở nên nhàm chán"],ans:1,explain:"'Come in handy' = trở nên hữu ích khi cần. VD: An umbrella comes in handy on rainy days."},
+    {q:"'Give the illusion' nghĩa là gì?",opts:["Cho quà","Tạo ảo giác","Gây thất vọng","Mang lại niềm vui"],ans:1,explain:"'Give the illusion that...' = tạo ảo giác rằng... VD: Mirrors give the illusion of more space."},
+    {q:"'Wrinkled' mô tả điều gì?",opts:["Mới mẻ, sáng bóng","Nhăn nheo, nhàu","Sạch sẽ, thơm tho","Mềm mại, mịn màng"],ans:1,explain:"'Wrinkled' nghĩa là nhăn nheo/nhàu, thường mô tả quần áo hoặc da."}
+  ],
+  fill: [
+    {vi:"trông gọn gàng",ans:"look presentable",hint:"l___ p___"},
+    {vi:"gương nhỏ cầm tay",ans:"a compact mirror",hint:"a c___ m___"},
+    {vi:"trở nên hữu ích",ans:"come in handy",hint:"c___ in h___"},
+    {vi:"tạo ảo giác",ans:"give the illusion",hint:"g___ the i___"},
+    {vi:"vật trang trí",ans:"a decorative item",hint:"a d___ i___"}
+  ],
+  speaking: [
+    {q:"Do you like looking at yourself in the mirror?",
+     vocabHint:["look presentable","neat","wrinkled"],
+     samples:[
+       {band:"7.5",text:"I wouldn't say I'm vain, but I do glance in the mirror quite often, mainly to make sure I look presentable. There's nothing worse than realizing your shirt is wrinkled halfway through the day!",vi:"Tôi không nói là tôi kiêu ngạo, nhưng tôi có nhìn vào gương khá thường xuyên, chủ yếu để đảm bảo mình trông gọn gàng. Không có gì tệ hơn khi nhận ra áo mình nhăn nheo giữa chừng ngày."},
+       {band:"8.0",text:"Definitely. I usually check the mirror to ensure my hair is neat and my clothes aren't wrinkled. It's just a quick habit before heading out that helps me feel confident.",vi:"Chắc chắn rồi. Tôi thường kiểm tra gương để đảm bảo tóc gọn gàng và quần áo không nhăn. Đó chỉ là thói quen nhanh trước khi ra ngoài giúp tôi cảm thấy tự tin."},
+       {band:"9.0",text:"I do, actually. It's not about vanity, but rather about presenting myself well. I make sure I look presentable before leaving the house, checking that my appearance is neat and wrinkle-free.",vi:"Tôi có, thực ra. Không phải vì kiêu ngạo, mà là về việc trình bày bản thân tốt. Tôi đảm bảo mình trông gọn gàng trước khi rời nhà, kiểm tra ngoại hình gọn gàng và không nhăn."}
+     ],
+     explanation:"Câu trả lời Band 9.0 sử dụng cách diễn đạt tự nhiên ('I do, actually'), collocations mạnh ('look presentable'), và giải thích lý do cụ thể."},
+    {q:"Have you ever bought a mirror?",
+     vocabHint:["a compact mirror","a decorative item","nicely compliment"],
+     samples:[
+       {band:"7.5",text:"Yes, I picked up a compact mirror for travel. I also bought a large one as a decorative item for my room that nicely compliments the overall decor.",vi:"Vâng, tôi đã mua một chiếc gương nhỏ cho việc đi du lịch. Tôi cũng mua một chiếc lớn làm vật trang trí cho phòng, tôn lên vẻ đẹp tổng thể."},
+       {band:"8.0",text:"Actually, yes. I bought a compact mirror for when I'm on the go, and more recently I acquired a round wall mirror as a decorative item that nicely compliments my bedroom.",vi:"Thực ra, có. Tôi mua một chiếc gương nhỏ khi di chuyển, và gần đây tôi có một chiếc gương tường tròn làm vật trang trí tôn lên phòng ngủ của tôi."},
+       {band:"9.0",text:"Oh, for sure! I invested in a compact mirror for travel purposes, and I also purchased a decorative wall mirror that nicely compliments my living room's aesthetic.",vi:"Ồ, chắc chắn rồi! Tôi đã đầu tư vào một chiếc gương nhỏ cho mục đích du lịch, và tôi cũng mua một chiếc gương tường trang trí tôn lên thẩm mỹ phòng khách."}
+     ],
+     explanation:"Band 9.0 dùng 'invested in' thay 'bought' cho tinh tế hơn, và 'aesthetic' cho từ vựng nâng cao."},
+    {q:"Do you usually take a mirror with you?",
+     vocabHint:["a compact mirror","come in handy","look presentable"],
+     samples:[
+       {band:"7.5",text:"Yes, I always keep a compact mirror in my bag. It comes in handy when I need to check my appearance, especially before important meetings.",vi:"Vâng, tôi luôn giữ một chiếc gương nhỏ trong túi. Nó rất hữu ích khi tôi cần kiểm tra ngoại hình, đặc biệt trước các cuộc họp quan trọng."},
+       {band:"8.0",text:"I do, actually. I keep a compact mirror in my bag at all times. It really comes in handy - for example, after lunch I like to make sure I still look presentable.",vi:"Tôi có, thực ra. Tôi giữ một chiếc gương nhỏ trong túi mọi lúc. Nó thực sự hữu ích - ví dụ, sau bữa trưa tôi thích đảm bảo mình vẫn trông gọn gàng."},
+       {band:"9.0",text:"Absolutely, I make it a point to carry a compact mirror with me. It comes in handy in various situations, allowing me to ensure I look presentable throughout the day.",vi:"Tuyệt đối, tôi luôn mang theo một chiếc gương nhỏ. Nó hữu ích trong nhiều tình huống, cho phép tôi đảm bảo trông gọn gàng suốt ngày."}
+     ],
+     explanation:"Band 9.0 dùng 'make it a point to' cho sự chủ động, và 'throughout the day' cho tính liên tục."},
+    {q:"Would you use mirrors to decorate your room?",
+     vocabHint:["a decorative item","nicely compliment","give the illusion"],
+     samples:[
+       {band:"7.5",text:"Absolutely. A mirror can be a beautiful decorative item and give the illusion that the space is bigger than it actually is, which is perfect for smaller rooms.",vi:"Chắc chắn rồi. Một chiếc gương có thể là vật trang trí đẹp và tạo ảo giác không gian rộng hơn thực tế, hoàn hảo cho phòng nhỏ."},
+       {band:"8.0",text:"Oh, for sure! I think a well-placed mirror can nicely compliment a living room or bedroom. Plus, they give the illusion that the space is bigger than it actually is.",vi:"Ồ, chắc chắn! Tôi nghĩ một chiếc gương đặt đúng chỗ có thể tôn lên phòng khách hoặc phòng ngủ. Ngoài ra, chúng tạo ảo giác không gian rộng hơn."},
+       {band:"9.0",text:"Definitely, mirrors serve dual purposes in interior design. They function as decorative items that nicely compliment various room aesthetics, while also giving the illusion of expanded space.",vi:"Chắc chắn, gương phục vụ hai mục đích trong thiết kế nội thất. Chúng hoạt động như vật trang trí tôn lên nhiều phong cách phòng, đồng thời tạo ảo giác không gian mở rộng."}
+     ],
+     explanation:"Band 9.0 dùng 'dual purposes', 'interior design', 'function as' cho từ vựng chuyên ngành và cấu trúc phức tạp."}
+  ]
+},
+views: {
+  name: "Views", emoji: "🏔️",
+  vocab: [
+    {word:"stick with someone",ipa:"/stɪk wɪð/",pos:"v",vi:"ở lại trong trí nhớ",en:"to remain in someone's memory",ex:"That beautiful sunset has stuck with me ever since.",coll:"stick with me/you"},
+    {word:"diverse landscapes",ipa:"/daɪˈvɜːs ˈlændskeɪps/",pos:"n",vi:"phong cảnh đa dạng",en:"varied natural scenery",ex:"Vietnam has incredibly diverse landscapes.",coll:"diverse landscapes/scenery"},
+    {word:"be drawn to",ipa:"/biː drɔːn tuː/",pos:"v",vi:"bị thu hút bởi",en:"to be attracted to something",ex:"I'm always drawn to mountain views.",coll:"be drawn to something/someone"},
+    {word:"unforgettable",ipa:"/ˌʌnfəˈɡetəbl/",pos:"adj",vi:"không thể quên",en:"impossible to forget",ex:"The view from the top was unforgettable.",coll:"unforgettable experience/view"},
+    {word:"scenery",ipa:"/ˈsiːnəri/",pos:"n",vi:"phong cảnh",en:"the natural features of a landscape",ex:"The scenery in Da Lat is breathtaking.",coll:"beautiful/stunning scenery"},
+    {word:"urban areas",ipa:"/ˈɜːbən ˈeəriəz/",pos:"n",vi:"khu vực thành thị",en:"city or town areas",ex:"Urban areas have impressive skylines.",coll:"urban/rural areas"},
+    {word:"rural areas",ipa:"/ˈrʊərəl ˈeəriəz/",pos:"n",vi:"khu vực nông thôn",en:"countryside areas",ex:"I prefer the peaceful views in rural areas.",coll:"rural areas/communities"}
+  ],
+  mcq: [
+    {q:"'Stick with someone' nghĩa là gì?",opts:["Dính vào ai đó","Ở lại trong trí nhớ","Đi theo ai đó","Gắn bó với ai"],ans:1,explain:"Trong ngữ cảnh views/memories, 'stick with me' nghĩa là hình ảnh/kỷ niệm đó in sâu trong trí nhớ."},
+    {q:"'Be drawn to' nghĩa là?",opts:["Bị vẽ lên","Bị kéo đi","Bị thu hút bởi","Bị đẩy ra"],ans:2,explain:"'Be drawn to' = bị thu hút, bị hấp dẫn bởi điều gì đó. VD: I'm drawn to nature."},
+    {q:"'Diverse landscapes' mô tả điều gì?",opts:["Phong cảnh giống nhau","Phong cảnh đa dạng","Phong cảnh buồn tẻ","Phong cảnh nhân tạo"],ans:1,explain:"'Diverse' = đa dạng, nhiều loại. 'Diverse landscapes' = phong cảnh phong phú, nhiều dạng."},
+    {q:"Đâu là nghĩa của 'rural areas'?",opts:["Khu công nghiệp","Khu vực thành thị","Khu vực nông thôn","Khu thương mại"],ans:2,explain:"'Rural areas' = khu vực nông thôn, vùng quê, đối lập với 'urban areas' (thành thị)."}
+  ],
+  fill: [
+    {vi:"ở lại trong trí nhớ",ans:"stick with",hint:"s___ w___"},
+    {vi:"phong cảnh đa dạng",ans:"diverse landscapes",hint:"d___ l___"},
+    {vi:"bị thu hút bởi",ans:"be drawn to",hint:"be d___ t___"},
+    {vi:"khu vực nông thôn",ans:"rural areas",hint:"r___ a___"}
+  ],
+  speaking: [
+    {q:"Have you seen an unforgettable and beautiful view or scenery?",
+     vocabHint:["stick with someone","unforgettable","scenery"],
+     samples:[
+       {band:"7.5",text:"Definitely. The scenery in Sapa was unforgettable. The rice terraces and mountains have really stuck with me ever since.",vi:"Chắc chắn rồi. Phong cảnh ở Sapa thật khó quên. Những ruộng bậc thang và núi non thực sự in sâu trong tôi từ đó."},
+       {band:"8.0",text:"Oh absolutely. I visited Ha Long Bay a couple of years ago and the view from the boat at sunrise was truly unforgettable. The way the limestone karsts emerged from the mist has stuck with me ever since.",vi:"Ồ chắc chắn rồi. Tôi thăm Vịnh Hạ Long vài năm trước và khung cảnh từ thuyền lúc bình minh thực sự khó quên. Cách những núi đá vôi limestone karsts hiện ra từ sương mù đã in sâu trong tôi từ đó."},
+       {band:"9.0",text:"I have indeed. The most memorable view I've encountered was during my trip to Fansipan, where the scenery at dawn was absolutely breathtaking. The interplay of mist-covered mountains and the first rays of sunlight has stuck with me profoundly.",vi:"Tôi thực sự có. Khung cảnh đáng nhớ nhất tôi từng gặp là trong chuyến đi Fansipan, nơi phong cảnh lúc bình minh tuyệt đẹp. Sự tương tác giữa núi mây mù và những tia nắng đầu tiên đã in sâu trong tôi một cách sâu sắc."}
+     ],
+     explanation:"Band 9.0 dùng 'interplay', 'profoundly' cho từ vựng nâng cao và cấu trúc phức tạp."},
+    {q:"Do you prefer views in your own country or in other countries?",
+     vocabHint:["diverse landscapes","be drawn to"],
+     samples:[
+       {band:"7.5",text:"I'd say I prefer views in Vietnam because we have such diverse landscapes — from beaches to mountains, you can experience everything within hours.",vi:"Tôi nói tôi thích khung cảnh ở Việt Nam hơn vì chúng ta có phong cảnh đa dạng - từ bãi biển đến núi, bạn có thể trải nghiệm mọi thứ trong vài giờ."},
+       {band:"8.0",text:"Honestly, I'm more drawn to views in my own country. Vietnam has incredibly diverse landscapes — you can go from pristine beaches to terraced mountains within hours. That said, I wouldn't mind exploring views abroad either!",vi:"Thành thật mà nói, tôi bị thu hút nhiều hơn bởi khung cảnh ở đất nước của tôi. Việt Nam có phong cảnh cực kỳ đa dạng - bạn có thể đi từ bãi biển nguyên sơ đến núi bậc thang trong vài giờ. Dù vậy, tôi cũng không ngại khám phá khung cảnh nước ngoài!"},
+       {band:"9.0",text:"While I appreciate scenic views worldwide, I find myself particularly drawn to those in Vietnam. Our diverse landscapes, ranging from coastal vistas to mountainous terrains, offer unparalleled variety that continually captivates me.",vi:"Mặc dù tôi đánh giá cao khung cảnh thiên nhiên trên toàn thế giới, tôi thấy mình đặc biệt bị thu hút bởi những khung cảnh ở Việt Nam. Phong cảnh đa dạng của chúng ta, từ cảnh quan ven biển đến địa hình núi non, mang lại sự đa dạng vô song liên tục thu hút tôi."}
+     ],
+     explanation:"Band 9.0 dùng 'unparalleled', 'continually captivates' cho từ vựng tinh tế và cấu trúc phức tạp."},
+    {q:"Do you prefer views in urban areas or rural areas?",
+     vocabHint:["urban areas","rural areas","be drawn to"],
+     samples:[
+       {band:"7.5",text:"I'd have to say rural areas, without a doubt. I'm naturally drawn to wide-open spaces and greenery. Don't get me wrong, city skylines can be stunning at night, but nothing beats the tranquility of the countryside.",vi:"Tôi phải nói vùng nông thôn, không nghi ngờ gì. Tôi tự nhiên bị thu hút bởi không gian rộng mở và màu xanh. Đừng hiểu lầm, đường chân trời thành phố có thể tuyệt đẹp vào ban đêm, nhưng không gì sánh bằng sự yên bình của vùng quê."},
+       {band:"8.0",text:"I definitely prefer rural areas. The peaceful, natural scenery in the countryside is much more appealing to me than the concrete jungles of urban areas. There's something rejuvenating about being surrounded by nature.",vi:"Tôi chắc chắn thích vùng nông thôn hơn. Phong cảnh yên bình, tự nhiên ở vùng quê hấp dẫn tôi nhiều hơn những khu rừng bê tông của vùng đô thị. Có điều gì đó phục hồi sức khỏe khi được bao quanh bởi thiên nhiên."},
+       {band:"9.0",text:"Rural areas undoubtedly hold more appeal for me. The serene landscapes, unspoiled by urbanization, provide a sense of peace and connection with nature that urban environments simply cannot replicate.",vi:"Vùng nông thôn chắc chắn có sức hấp dẫn hơn đối với tôi. Những cảnh quan thanh bình, không bị đô thị hóa làm hỏng, mang lại cảm giác bình yên và kết nối với thiên nhiên mà môi trường đô thị đơn giản không thể sao chép."}
+     ],
+     explanation:"Band 9.0 dùng 'undoubtedly', 'unspoiled', 'replicate' cho từ vựng học thuật và cấu trúc trang trọng."},
+    {q:"Do you like taking pictures of different views?",
+     vocabHint:["scenery","unforgettable","stick with someone"],
+     samples:[
+       {band:"7.5",text:"Absolutely, I'm a bit of a photography enthusiast actually. Whenever I come across stunning scenery, I can't resist snapping a few shots. It's a great way to make sure those unforgettable moments stick with me.",vi:"Chắc chắn rồi, thực ra tôi là một người đam mê nhiếp ảnh. Bất cứ khi nào tôi gặp phong cảnh tuyệt đẹp, tôi không thể cưỡng lại việc chụp vài tấm. Đó là cách tuyệt vời để đảm bảo những khoảnh khắc khó quên đó ở lại với tôi."},
+       {band:"8.0",text:"Yes, I do! Whenever I see unforgettable scenery, I take photos so the memory sticks with me. It's wonderful to have visual reminders of beautiful places I've visited.",vi:"Vâng, tôi có! Bất cứ khi nào tôi thấy phong cảnh khó quên, tôi chụp ảnh để kỷ niệm ở lại với tôi. Thật tuyệt khi có lời nhắc nhở trực quan về những nơi đẹp tôi đã thăm."},
+       {band:"9.0",text:"Photography has become an integral part of my travel experience. I meticulously document remarkable scenery to preserve memories that would otherwise fade. These visual records ensure that unforgettable moments remain etched in my consciousness.",vi:"Nhiếp ảnh đã trở thành một phần không thể thiếu trong trải nghiệm du lịch của tôi. Tôi ghi chép tỉ mỉ phong cảnh đáng chú ý để bảo tồn kỷ niệm nếu không sẽ phai nhạt. Những bản ghi trực quan này đảm bảo những khoảnh khắc khó quên vẫn còn khắc sâu trong ý thức của tôi."}
+     ],
+     explanation:"Band 9.0 dùng 'integral', 'meticulously', 'etched in my consciousness' cho từ vựng tinh tế và cấu trúc phức tạp."}
+  ]
+},
+childhood: {
+  name: "Childhood Activities", emoji: "🧒",
+  vocab: [
+    {word:"lean towards",ipa:"/liːn təˈwɔːdz/",pos:"v",vi:"thiên về, thích hơn",en:"to prefer or favor something",ex:"I lean towards outdoor activities now.",coll:"lean towards something"},
+    {word:"break up the routine",ipa:"/breɪk ʌp ðə ruːˈtiːn/",pos:"v",vi:"phá vỡ sự nhàm chán",en:"to do something different from usual",ex:"I go hiking to break up the routine.",coll:"break up the routine/monotony"},
+    {word:"a big part of my childhood",ipa:"/ə bɪɡ pɑːt əv maɪ ˈtʃaɪldhʊd/",pos:"n",vi:"phần lớn tuổi thơ",en:"something very important during childhood",ex:"Playing outside was a big part of my childhood.",coll:"a big/huge part of"},
+    {word:"grow out of",ipa:"/ɡroʊ aʊt əv/",pos:"v",vi:"lớn lên và bỏ dần",en:"to stop doing something as you get older",ex:"I grew out of playing video games.",coll:"grow out of something"},
+    {word:"bond with",ipa:"/bɒnd wɪð/",pos:"v",vi:"gắn kết với",en:"to form a close relationship",ex:"I bonded with my classmates through sports.",coll:"bond with someone/friends"}
+  ],
+  mcq: [
+    {q:"'Lean towards' nghĩa là gì?",opts:["Nghiêng người","Thiên về, thích hơn","Tránh xa","Chạy tới"],ans:1,explain:"'Lean towards' = thiên về, có xu hướng thích. VD: I lean towards reading rather than watching TV."},
+    {q:"'Break up the routine' có nghĩa?",opts:["Làm hỏng thói quen","Phá vỡ sự nhàm chán","Ngừng làm việc","Thay đổi lịch trình"],ans:1,explain:"'Break up the routine' = làm điều gì khác thường ngày để bớt nhàm chán."},
+    {q:"'A big part of my childhood' nghĩa là?",opts:["Phần buồn nhất tuổi thơ","Phần lớn/quan trọng của tuổi thơ","Khoảng thời gian ngắn","Điều đáng quên"],ans:1,explain:"'A big part of' = một phần quan trọng, chiếm nhiều thời gian trong tuổi thơ."},
+    {q:"'Grow out of' có nghĩa gì?",opts:["Phát triển nhanh","Lớn lên và bỏ dần","Trồng cây","Vượt qua khó khăn"],ans:1,explain:"'Grow out of something' = lớn lên và không còn thích/làm điều đó nữa."}
+  ],
+  fill: [
+    {vi:"thiên về, thích hơn",ans:"lean towards",hint:"l___ t___"},
+    {vi:"phá vỡ sự nhàm chán",ans:"break up the routine",hint:"b___ up the r___"},
+    {vi:"phần lớn tuổi thơ",ans:"a big part of my childhood",hint:"a b___ p___ of my c___"},
+    {vi:"gắn kết với",ans:"bond with",hint:"b___ w___"}
+  ],
+  speaking: [
+    {q:"Are there any differences between the activities you liked as a child and now?",
+     vocabHint:["lean towards","grow out of","break up the routine"],
+     samples:[
+       {band:"7.5",text:"Oh, quite a lot actually. As a kid, I was all about outdoor games — I'd spend hours playing tag. But I've grown out of that, and now I lean towards things like reading or going to the gym to break up the routine.",vi:"Ồ, khá nhiều thực ra. Khi còn nhỏ, tôi mê mẩn trò chơi ngoài trời - tôi dành hàng giờ chơi đuổi bắt. Nhưng tôi đã bỏ điều đó, và bây giờ tôi thiên về những thứ như đọc sách hoặc đi phòng gym để phá vỡ sự nhàm chán."},
+       {band:"8.0",text:"Definitely, my preferences have evolved significantly. As a child, I was constantly engaged in physical outdoor activities, but I've grown out of that phase. Nowadays, I lean towards more intellectual pursuits that help break up the routine.",vi:"Chắc chắn, sở thích của tôi đã phát triển đáng kể. Khi còn nhỏ, tôi liên tục tham gia hoạt động thể chất ngoài trời, nhưng tôi đã vượt qua giai đoạn đó. Ngày nay, tôi thiên về những hoạt động trí tuệ hơn giúp phá vỡ sự nhàm chán."},
+       {band:"9.0",text:"The contrast is quite striking. Childhood activities revolved around unstructured outdoor play, whereas now I consciously lean towards pursuits that provide mental stimulation and effectively break up the monotony of daily routines.",vi:"Sự tương phản khá rõ rệt. Hoạt động tuổi thơ xoay quanh trò chơi ngoài trời không có cấu trúc, trong khi bây giờ tôi có ý thức thiên về những hoạt động mang lại sự kích thích tinh thần và hiệu quả phá vỡ sự đơn điệu của thói quen hàng ngày."}
+     ],
+     explanation:"Band 9.0 dùng 'evolved significantly', 'consciously lean towards', 'monotony' cho từ vựng tinh tế."},
+    {q:"Did you prefer to do activities alone or with a group as a child?",
+     vocabHint:["bond with","a big part of my childhood"],
+     samples:[
+       {band:"7.5",text:"Looking back, I was definitely more of a social butterfly as a kid. Group activities like playing football after school were a big part of my childhood — they really helped me bond with my classmates and build friendships that lasted for years.",vi:"Nhìn lại, tôi chắc chắn là một con bướm xã hội khi còn nhỏ. Hoạt động nhóm như chơi bóng đá sau giờ học là phần lớn tuổi thơ của tôi - chúng thực sự giúp tôi gắn kết với bạn học và xây dựng tình bạn kéo dài hàng năm."},
+       {band:"8.0",text:"I was much more inclined towards group activities during my childhood. Team sports and group games constituted a significant part of my early experiences, fostering social bonds that remain important to me today.",vi:"Tôi có khuynh hướng nhiều hơn về hoạt động nhóm trong tuổi thơ. Thể thao đội nhóm và trò chơi nhóm tạo thành phần đáng kể trong trải nghiệm ban đầu của tôi, nuôi dưỡng những mối quan hệ xã hội vẫn quan trọng với tôi ngày nay."},
+       {band:"9.0",text:"Group activities predominated during my formative years. Collective endeavors, ranging from team sports to collaborative play, formed an integral component of my childhood, facilitating the development of interpersonal skills and lasting camaraderie.",vi:"Hoạt động nhóm chiếm ưu thế trong những năm hình thành của tôi. Những nỗ lực tập thể, từ thể thao đội nhóm đến trò chơi hợp tác, tạo thành thành phần không thể thiếu trong tuổi thơ của tôi, tạo điều kiện phát triển kỹ năng giao际 và tình đồng chí lâu dài."}
+     ],
+     explanation:"Band 9.0 dùng 'predominated', 'formative years', 'camaraderie' cho từ vựng học thuật."},
+    {q:"What were your favourite activities when you were a child?",
+     vocabHint:["a big part of my childhood","bond with"],
+     samples:[
+       {band:"7.5",text:"Well, if I had to pick one, it'd probably be playing hide and seek in my neighborhood. It was a big part of my childhood and a great way to bond with the other kids on my street. I also loved drawing — I'd spend hours creating my own comic books!",vi:"Chà, nếu phải chọn một, có lẽ là chơi trốn tìm ở khu phố. Đó là phần lớn tuổi thơ của tôi và cách tuyệt vời để gắn kết với lũ trẻ khác trên phố. Tôi cũng thích vẽ - tôi dành hàng giờ tạo ra truyện tranh của riêng mình!"},
+       {band:"8.0",text:"Outdoor exploration was definitely my passion. Scouring the neighborhood for adventure, playing with friends, and engaging in imaginative play formed a substantial part of my childhood experiences.",vi:"Khám phá ngoài trời chắc chắn là niềm đam mê của tôi. Tìm kiếm phiêu lưu ở khu phố, chơi với bạn bè, và tham gia trò chơi tưởng tượng tạo thành phần đáng kể trong trải nghiệm tuổi thơ của tôi."},
+       {band:"9.0",text:"Unstructured outdoor activities constituted the cornerstone of my childhood enjoyment. Spontaneous games with neighborhood children, coupled with solitary imaginative pursuits, provided a balanced foundation for social and creative development.",vi:"Hoạt động ngoài trời không có cấu trúc tạo thành nền tảng của niềm vui tuổi thơ của tôi. Trò chơi tự phát với trẻ em khu phố, kết hợp với những hoạt động tưởng tượng một mình, mang lại nền tảng cân bằng cho sự phát triển xã hội và sáng tạo."}
+     ],
+     explanation:"Band 9.0 dùng 'constituted the cornerstone', 'spontaneous', 'balanced foundation' cho cấu trúc phức tạp."},
+    {q:"What are your favourite activities?",
+     vocabHint:["lean towards","break up the routine"],
+     samples:[
+       {band:"7.5",text:"At the moment, I'd say I lean towards a mix of physical and creative activities. I go hiking on weekends to break up the routine, and during the week I love curling up with a good book. It keeps life balanced and interesting.",vi:"Hiện tại, tôi nói tôi thiên về sự kết hợp hoạt động thể chất và sáng tạo. Tôi đi bộ đường mòn vào cuối tuần để phá vỡ sự nhàm chán, và trong tuần tôi thích cuộn tròn với một cuốn sách hay. Nó giữ cuộc sống cân bằng và thú vị."},
+       {band:"8.0",text:"Currently, I lean towards activities that combine mental stimulation with physical engagement. Reading challenging literature and engaging in outdoor pursuits help break up the routine while providing intellectual and physical benefits.",vi:"Hiện tại, tôi thiên về hoạt động kết hợp kích thích tinh thần với sự tham gia thể chất. Đọc văn học đầy thách thức và tham gia hoạt động ngoài trời giúp phá vỡ sự nhàm chán đồng thời mang lại lợi ích trí tuệ và thể chất."},
+       {band:"9.0",text:"My current preferences encompass a diverse array of pursuits. I consciously lean towards intellectually demanding activities complemented by physical endeavors, ensuring a holistic approach that effectively breaks up routine existence.",vi:"Sở thích hiện tại của tôi bao gồm nhiều loại hoạt động đa dạng. Tôi có ý thức thiên về hoạt động đòi hỏi trí tuệ được bổ sung bởi nỗ lực thể chất, đảm bảo cách tiếp cận toàn diện hiệu quả phá vỡ sự tồn tại thường lệ."}
+     ],
+     explanation:"Band 9.0 dùng 'encompass', 'consciously lean towards', 'holistic approach' cho từ vựng tinh tế."}
+  ]
+},
+building: {
+  name: "Building", emoji: "🏢",
+  vocab: [
+    {word:"the lack of space",ipa:"/ðə læk əv speɪs/",pos:"n",vi:"sự thiếu không gian",en:"not having enough room",ex:"The lack of space in tall buildings can be uncomfortable.",coll:"the lack of space/privacy"},
+    {word:"the feeling of being boxed in",ipa:"/ðə ˈfiːlɪŋ əv biːɪŋ bɒkst ɪn/",pos:"n",vi:"cảm giác bị giam cầm",en:"feeling confined or trapped",ex:"Living in a tiny apartment gives you the feeling of being boxed in.",coll:"feel boxed in"},
+    {word:"fear of heights",ipa:"/fɪər əv haɪts/",pos:"n",vi:"sợ độ cao",en:"being afraid of high places",ex:"I can't live on high floors due to my fear of heights.",coll:"have a fear of heights"},
+    {word:"interesting architecture",ipa:"/ˈɪntrəstɪŋ ˈɑːkɪtektʃər/",pos:"n",vi:"kiến trúc thú vị",en:"buildings with unique design",ex:"I love visiting cities with interesting architecture.",coll:"modern/interesting architecture"},
+    {word:"high-rise apartments",ipa:"/haɪ raɪz əˈpɑːtmənts/",pos:"n",vi:"chung cư cao tầng",en:"tall residential buildings",ex:"There are many high-rise apartments in the city center.",coll:"high-rise apartments/buildings"},
+    {word:"change the skyline",ipa:"/tʃeɪndʒ ðə ˈskaɪlaɪn/",pos:"v",vi:"thay đổi đường chân trời",en:"to alter the city's horizon view",ex:"New skyscrapers have completely changed the skyline.",coll:"change/transform the skyline"}
+  ],
+  mcq: [
+    {q:"'The feeling of being boxed in' nghĩa là gì?",opts:["Cảm giác vui vẻ","Cảm giác bị giam cầm/chật chội","Cảm giác tự do","Cảm giác an toàn"],ans:1,explain:"'Boxed in' = bị nhốt trong hộp, nghĩa bóng là cảm giác chật chội, bí bách."},
+    {q:"'Change the skyline' có nghĩa?",opts:["Thay đổi thời tiết","Thay đổi đường chân trời","Thay đổi màu trời","Thay đổi cảnh quan"],ans:1,explain:"'Skyline' = đường chân trời (hình dáng các tòa nhà khi nhìn từ xa). 'Change the skyline' = xây tòa nhà mới làm thay đổi hình dáng thành phố."},
+    {q:"'High-rise apartments' là gì?",opts:["Nhà trệt","Chung cư cao tầng","Biệt thự","Nhà phố"],ans:1,explain:"'High-rise' = cao tầng. 'High-rise apartments' = chung cư/căn hộ cao tầng."},
+    {q:"'Fear of heights' mô tả điều gì?",opts:["Sợ bóng tối","Sợ nước","Sợ độ cao","Sợ không gian hẹp"],ans:2,explain:"'Heights' = độ cao. 'Fear of heights' (acrophobia) = chứng sợ độ cao."}
+  ],
+  fill: [
+    {vi:"sự thiếu không gian",ans:"the lack of space",hint:"the l___ of s___"},
+    {vi:"cảm giác bị giam cầm",ans:"the feeling of being boxed in",hint:"the f___ of being b___ in"},
+    {vi:"sợ độ cao",ans:"fear of heights",hint:"f___ of h___"},
+    {vi:"chung cư cao tầng",ans:"high-rise apartments",hint:"h___-r___ a___"},
+    {vi:"thay đổi đường chân trời",ans:"change the skyline",hint:"c___ the s___"}
+  ],
+  speaking: [
+    {q:"Do you want to live in a tall building?",
+     vocabHint:["the lack of space","the feeling of being boxed in","fear of heights"],
+     samples:[
+       {band:"5.5",text:"No, I don't want to live in a tall building. I have a <b class='hl'>fear of heights</b>."},
+       {band:"6.5",text:"Not really. I'd worry about <b class='hl'>the lack of space</b> and <b class='hl'>the feeling of being boxed in</b>. Plus, I have a bit of a <b class='hl'>fear of heights</b>."},
+       {band:"7.5+",text:"To be honest, it's not really my cup of tea. I'd struggle with <b class='hl'>the lack of space</b> and that <b class='hl'>feeling of being boxed in</b>. On top of that, I have a slight <b class='hl'>fear of heights</b>, so living on the 30th floor wouldn't exactly be ideal for me!"}
+     ],
+     explanation:"'Not my cup of tea' là idiom tự nhiên. Thêm humor ('wouldn't exactly be ideal') cho Band 7.5+."},
+    {q:"Is there a building that you would like to visit?",
+     vocabHint:["interesting architecture"],
+     samples:[
+       {band:"5.5",text:"Yes, I want to visit the Eiffel Tower. It has <b class='hl'>interesting architecture</b>."},
+       {band:"6.5",text:"I'd love to visit the Sagrada Familia in Barcelona. Its <b class='hl'>interesting architecture</b> is world-famous."},
+       {band:"7.5+",text:"Oh, definitely the Sagrada Familia in Barcelona. I've always been fascinated by Gaudí's work, and the <b class='hl'>interesting architecture</b> — with all those organic shapes and stained glass — looks absolutely breathtaking in photos. It's been on my bucket list for years!"}
+     ],
+     explanation:"Nêu tên cụ thể và lý do chi tiết. 'On my bucket list' là cách nói phổ biến, tự nhiên."},
+    {q:"Do you take photos of buildings?",
+     vocabHint:["interesting architecture","change the skyline"],
+     samples:[
+       {band:"5.5",text:"Yes, sometimes I take photos of buildings with <b class='hl'>interesting architecture</b>."},
+       {band:"6.5",text:"Yes, whenever I travel. I'm drawn to buildings with <b class='hl'>interesting architecture</b>, especially ones that have <b class='hl'>changed the skyline</b> of a city."},
+       {band:"7.5+",text:"I do, actually — especially when traveling. There's something about buildings with <b class='hl'>interesting architecture</b> that makes you want to capture them. I particularly love photographing city skylines and how modern skyscrapers have <b class='hl'>changed the skyline</b> over time."}
+     ],
+     explanation:"'There's something about... that makes you' là cấu trúc hay cho Band 7.5+."},
+    {q:"Are there tall buildings near your home?",
+     vocabHint:["high-rise apartments","change the skyline"],
+     samples:[
+       {band:"5.5",text:"Yes, there are many <b class='hl'>high-rise apartments</b> near my home."},
+       {band:"6.5",text:"Yes, quite a few <b class='hl'>high-rise apartments</b> and office buildings have been built recently. They've really <b class='hl'>changed the skyline</b>."},
+       {band:"7.5+",text:"Yes, the area around my home has changed dramatically in recent years. Several <b class='hl'>high-rise apartments</b> and commercial towers have sprung up, completely <b class='hl'>changing the skyline</b>. It's a mixed blessing — the area looks more modern, but it also feels more crowded."}
+     ],
+     explanation:"'Sprung up' = mọc lên nhanh chóng. 'A mixed blessing' thể hiện tư duy phản biện."}
+  ]
+},
+reading: {
+  name: "Reading", emoji: "📖",
+  vocab: [
+    {word:"get the gist of",ipa:"/ɡet ðə dʒɪst əv/",pos:"v",vi:"hiểu ý chính, đại ý",en:"to understand the main idea",ex:"I just need to get the gist of the article.",coll:"get the gist of something"},
+    {word:"casual content",ipa:"/ˈkæʒuəl ˈkɒntent/",pos:"n",vi:"nội dung giải trí nhẹ",en:"light, informal content",ex:"I scan through casual content like social media posts.",coll:"casual content/reading"},
+    {word:"get absorbed in",ipa:"/ɡet əbˈzɔːbd ɪn/",pos:"v",vi:"bị cuốn hút vào",en:"to be deeply focused on something",ex:"I easily get absorbed in a good novel.",coll:"get absorbed in something"},
+    {word:"scanning",ipa:"/ˈskænɪŋ/",pos:"n",vi:"đọc lướt",en:"reading quickly to find key info",ex:"Scanning helps me get through emails faster.",coll:"scanning/skimming"},
+    {word:"detailed reading",ipa:"/ˈdiːteɪld ˈriːdɪŋ/",pos:"n",vi:"đọc kỹ, đọc chi tiết",en:"reading carefully for full understanding",ex:"Academic papers require detailed reading.",coll:"detailed/close reading"}
+  ],
+  mcq: [
+    {q:"'Get the gist of' nghĩa là gì?",opts:["Đọc từng chữ","Hiểu ý chính, đại ý","Quên hết nội dung","Dịch sang tiếng Việt"],ans:1,explain:"'Gist' = ý chính, cốt lõi. 'Get the gist of' = nắm được ý chính mà không cần đọc kỹ từng chi tiết."},
+    {q:"'Get absorbed in' có nghĩa?",opts:["Bị hấp thụ","Bị cuốn hút vào","Bị mất hứng","Bị buồn ngủ"],ans:1,explain:"'Absorbed' = bị hút vào. 'Get absorbed in a book' = đọc say mê, quên cả thời gian."},
+    {q:"'Casual content' là loại nội dung gì?",opts:["Nội dung học thuật","Nội dung giải trí nhẹ","Nội dung nghiêm túc","Nội dung khoa học"],ans:1,explain:"'Casual' = nhẹ nhàng, không trang trọng. 'Casual content' = nội dung giải trí, dễ đọc như mạng xã hội."},
+    {q:"Đâu là sự khác biệt giữa 'scanning' và 'detailed reading'?",opts:["Không khác nhau","Scanning = đọc lướt, Detailed reading = đọc kỹ","Scanning chậm hơn","Detailed reading nhanh hơn"],ans:1,explain:"Scanning = đọc nhanh tìm thông tin chính. Detailed reading = đọc kỹ từng chi tiết, hiểu sâu."}
+  ],
+  fill: [
+    {vi:"hiểu ý chính, đại ý",ans:"get the gist of",hint:"g___ the g___ of"},
+    {vi:"nội dung giải trí nhẹ",ans:"casual content",hint:"c___ c___"},
+    {vi:"bị cuốn hút vào",ans:"get absorbed in",hint:"g___ a___ in"},
+    {vi:"đọc lướt",ans:"scanning",hint:"s___"}
+  ],
+  speaking: [
+    {q:"Do you prefer scanning or detailed reading?",
+     vocabHint:["scanning","detailed reading","get the gist of","casual content"],
+     samples:[
+       {band:"5.5",text:"I usually prefer <b class='hl'>scanning</b> because it's faster."},
+       {band:"6.5",text:"It depends. For <b class='hl'>casual content</b> like news, I prefer <b class='hl'>scanning</b> to <b class='hl'>get the gist of</b> things. But for study materials, I do <b class='hl'>detailed reading</b>."},
+       {band:"7.5+",text:"It really depends on what I'm reading. For <b class='hl'>casual content</b> like social media or news headlines, I tend to scan to quickly <b class='hl'>get the gist of</b> things. But when it comes to academic papers or a gripping novel, I switch to <b class='hl'>detailed reading</b> — I want to absorb every word."}
+     ],
+     explanation:"'It really depends on' là cách mở đầu linh hoạt. Phân biệt rõ khi nào scan/khi nào đọc kỹ."},
+    {q:"When do you need to read carefully, and when not?",
+     vocabHint:["detailed reading","scanning","get the gist of"],
+     samples:[
+       {band:"5.5",text:"I read carefully for exams. I don't read carefully for social media."},
+       {band:"6.5",text:"I need <b class='hl'>detailed reading</b> for contracts or academic work. For social media, I just <b class='hl'>scan</b> to <b class='hl'>get the gist</b>."},
+       {band:"7.5+",text:"Well, anything involving important decisions — like contracts, medical information, or academic research — definitely requires <b class='hl'>detailed reading</b>. On the flip side, for things like social media feeds or lifestyle blogs, I just <b class='hl'>scan</b> through to <b class='hl'>get the gist of</b> what's going on."}
+     ],
+     explanation:"'On the flip side' = mặt khác, tạo sự đối lập. Cho ví dụ cụ thể (contracts, medical info)."},
+    {q:"Do you prefer to read on paper or on a screen?",
+     vocabHint:["get absorbed in","casual content"],
+     samples:[
+       {band:"5.5",text:"I prefer reading on paper. It's easier for my eyes."},
+       {band:"6.5",text:"For books, I prefer paper because I <b class='hl'>get absorbed in</b> the story more easily. For <b class='hl'>casual content</b>, a screen is more convenient."},
+       {band:"7.5+",text:"I'm a bit old-school when it comes to books — there's something about holding a physical book that helps me <b class='hl'>get absorbed in</b> the story. But for <b class='hl'>casual content</b> like news articles or blog posts, I'm perfectly happy reading on my phone. It just depends on the mood and the material."}
+     ],
+     explanation:"'I'm a bit old-school' là cách mở đầu thú vị. 'There's something about...' thể hiện cảm xúc tự nhiên."},
+    {q:"Do you like reading?",
+     vocabHint:["get absorbed in","casual content","get the gist of"],
+     samples:[
+       {band:"5.5",text:"Yes, I like reading books and news."},
+       {band:"6.5",text:"Yes, I enjoy reading a lot. I easily <b class='hl'>get absorbed in</b> novels and also read <b class='hl'>casual content</b> online."},
+       {band:"7.5+",text:"Oh, I'm a huge bookworm! I can easily <b class='hl'>get absorbed in</b> a good mystery or sci-fi novel and lose track of time completely. During the week, I also browse through <b class='hl'>casual content</b> like tech blogs just to <b class='hl'>get the gist of</b> what's new in the industry."}
+     ],
+     explanation:"'I'm a huge bookworm' là cách hay để thể hiện đam mê. Nêu thể loại cụ thể (mystery, sci-fi)."}
+  ]
+},
+sports: {
+  name: "Sports", emoji: "⚽",
+  vocab: [
+    {word:"work towards a common goal",ipa:"/wɜːk təˈwɔːdz ə ˈkɒmən ɡoʊl/",pos:"v",vi:"cùng hướng tới mục tiêu chung",en:"to cooperate for a shared objective",ex:"In team sports, players work towards a common goal.",coll:"work towards a goal/target"},
+    {word:"bring people together",ipa:"/brɪŋ ˈpiːpl təˈɡeðər/",pos:"v",vi:"kết nối mọi người",en:"to unite people",ex:"Sports bring people together regardless of background.",coll:"bring people/communities together"},
+    {word:"team spirit",ipa:"/tiːm ˈspɪrɪt/",pos:"n",vi:"tinh thần đồng đội",en:"the feeling of pride and loyalty within a team",ex:"Team spirit is essential in football.",coll:"team spirit/morale"},
+    {word:"individual sports",ipa:"/ˌɪndɪˈvɪdʒuəl spɔːts/",pos:"n",vi:"thể thao cá nhân",en:"sports played alone",ex:"Swimming and tennis are individual sports.",coll:"individual/solo sports"},
+    {word:"a sense of belonging",ipa:"/ə sens əv bɪˈlɒŋɪŋ/",pos:"n",vi:"cảm giác thuộc về",en:"feeling of being part of a group",ex:"Being on a team gives you a sense of belonging.",coll:"a sense of belonging/community"}
+  ],
+  mcq: [
+    {q:"'Work towards a common goal' nghĩa là gì?",opts:["Làm việc một mình","Cùng hướng tới mục tiêu chung","Thi đấu chống lại nhau","Bỏ cuộc giữa chừng"],ans:1,explain:"'Common goal' = mục tiêu chung. 'Work towards' = nỗ lực hướng tới. Cả cụm = cùng nhau cố gắng đạt một mục tiêu."},
+    {q:"'Bring people together' có nghĩa?",opts:["Đưa mọi người đi xa","Kết nối mọi người","Chia rẽ mọi người","Tập hợp đội quân"],ans:1,explain:"'Bring together' = kết nối, đoàn kết. Thể thao 'brings people together' = giúp mọi người gần nhau hơn."},
+    {q:"'A sense of belonging' là gì?",opts:["Cảm giác cô đơn","Cảm giác thuộc về","Cảm giác sợ hãi","Cảm giác bực bội"],ans:1,explain:"'Belonging' = sự thuộc về. 'A sense of belonging' = cảm giác được là một phần của nhóm/cộng đồng."},
+    {q:"'Team spirit' nghĩa là gì?",opts:["Linh hồn đội bóng","Tinh thần đồng đội","Đội trưởng","Chiến thuật đội"],ans:1,explain:"'Team spirit' = tinh thần đồng đội, sự đoàn kết và tự hào khi là thành viên của đội."}
+  ],
+  fill: [
+    {vi:"cùng hướng tới mục tiêu chung",ans:"work towards a common goal",hint:"w___ towards a c___ g___"},
+    {vi:"kết nối mọi người",ans:"bring people together",hint:"b___ people t___"},
+    {vi:"tinh thần đồng đội",ans:"team spirit",hint:"t___ s___"},
+    {vi:"cảm giác thuộc về",ans:"a sense of belonging",hint:"a s___ of b___"}
+  ],
+  speaking: [
+    {q:"What are the differences between team sports and individual sports?",
+     vocabHint:["work towards a common goal","team spirit","individual sports"],
+     samples:[
+       {band:"5.5",text:"Team sports need teamwork. <b class='hl'>Individual sports</b> are played alone."},
+       {band:"6.5",text:"The main difference is that in team sports, players <b class='hl'>work towards a common goal</b> and build <b class='hl'>team spirit</b>. In <b class='hl'>individual sports</b>, you rely on yourself."},
+       {band:"7.5+",text:"Well, the most obvious difference is that team sports require players to <b class='hl'>work towards a common goal</b>, which naturally builds <b class='hl'>team spirit</b> and cooperation. <b class='hl'>Individual sports</b>, on the other hand, develop self-discipline and personal resilience since you can only rely on yourself."}
+     ],
+     explanation:"So sánh rõ ràng giữa hai loại. 'On the other hand' tạo cấu trúc đối lập mạch lạc."},
+    {q:"Are team sports popular in your culture?",
+     vocabHint:["bring people together","team spirit","a sense of belonging"],
+     samples:[
+       {band:"5.5",text:"Yes, football is very popular in my country."},
+       {band:"6.5",text:"Absolutely. Football is huge in Vietnam. It really <b class='hl'>brings people together</b> and creates amazing <b class='hl'>team spirit</b>."},
+       {band:"7.5+",text:"Oh, incredibly popular! Football is practically a religion in Vietnam — whenever the national team plays, the whole country rallies together. It really <b class='hl'>brings people together</b> and creates an incredible <b class='hl'>sense of belonging</b>. The <b class='hl'>team spirit</b> among fans is something you have to experience firsthand!"}
+     ],
+     explanation:"'Practically a religion' là cách diễn đạt mạnh, sống động. 'Something you have to experience firsthand' kết thúc ấn tượng."},
+    {q:"Have you ever been part of a sports team?",
+     vocabHint:["work towards a common goal","a sense of belonging","bond with"],
+     samples:[
+       {band:"5.5",text:"Yes, I played football in high school."},
+       {band:"6.5",text:"Yes, I was on my school's football team. It gave me <b class='hl'>a sense of belonging</b> and taught me to <b class='hl'>work towards a common goal</b>."},
+       {band:"7.5+",text:"Yes, I was part of my high school football team for three years. It was an amazing experience — we'd train together, <b class='hl'>work towards a common goal</b>, and the <b class='hl'>sense of belonging</b> was incredible. Even though I'm not on a team anymore, the friendships I built during that time have lasted to this day."}
+     ],
+     explanation:"Kể thời gian cụ thể (three years). Nối quá khứ với hiện tại (friendships lasted) cho câu trả lời phong phú."},
+    {q:"Do you like watching team games? Why?",
+     vocabHint:["bring people together","team spirit","work towards a common goal"],
+     samples:[
+       {band:"5.5",text:"Yes, I like watching football because it's exciting."},
+       {band:"6.5",text:"Yes! I love how team games <b class='hl'>bring people together</b>. The <b class='hl'>team spirit</b> and energy in the stadium are amazing."},
+       {band:"7.5+",text:"Absolutely! There's nothing quite like the atmosphere of a live football match. What I love most is how team games <b class='hl'>bring people together</b> — strangers high-fiving when their team scores, everyone <b class='hl'>working towards a common goal</b>. The <b class='hl'>team spirit</b> is contagious, whether you're in the stadium or watching at home with friends."}
+     ],
+     explanation:"'There's nothing quite like' = không gì sánh bằng. Chi tiết cụ thể (strangers high-fiving) sống động."}
+  ]
+}
+};
+
+const TOPICS = ['mirror','views','childhood','building','reading','sports'];
+let currentSection = 'vocab';
+let currentTopic = null;
+let currentGame = null; // 'mcq' or 'fill'
+let mcqIndex = 0;
+let fillIndex = 0;
+let mcqScore = 0;
+let fillScore = 0;
+let mcqAnswered = false;
+let fillAnswered = false;
+let speakingTopic = null;
+let recordings = {};
+
+// ========== NAVIGATION ==========
+function showSection(sec) {
+  currentSection = sec;
+  ['vocab','speaking','list'].forEach(s => {
+    document.getElementById('sec-'+s).style.display = s===sec?'block':'none';
+    const btn = document.getElementById('nav-'+s);
+    if(s===sec){btn.classList.add('active');btn.style.background='';btn.style.color=''}
+    else{btn.classList.remove('active');btn.style.background='transparent';btn.style.color='#fff'}
+  });
+  if(sec==='vocab') renderTopicGrid('vocab');
+  if(sec==='speaking') renderTopicGrid('speaking');
+  if(sec==='list') renderVocabList();
+}
+
+// ========== TOPIC GRID ==========
+function renderTopicGrid(mode) {
+  const el = document.getElementById('sec-'+mode);
+  let h = `<h2 style="font-family:'Nunito',sans-serif;text-align:center;margin:8px 0 16px;color:var(--dark);font-size:22px">${mode==='vocab'?'📚 Chọn Chủ Đề Từ Vựng':'🎤 Chọn Chủ Đề Luyện Nói'}</h2><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">`;
+  TOPICS.forEach(t => {
+    const d = DATA[t];
+    h += `<div class="card topic-card" onclick="${mode==='vocab'?`startVocab('${t}')`:`startSpeaking('${t}')`}" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:8px">${d.emoji}</div>
+      <div style="font-weight:700;font-size:16px;color:var(--dark)">${d.name}</div>
+      <div style="color:var(--gray);font-size:13px;margin-top:4px">${d.vocab.length} từ vựng${mode==='speaking'?' • 4 câu hỏi':''}</div>
+    </div>`;
+  });
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+// ========== VOCAB GAME ==========
+function startVocab(topic) {
+  currentTopic = topic;
+  currentGame = null;
+  mcqIndex = 0; fillIndex = 0; mcqScore = 0; fillScore = 0;
+  renderVocabMenu();
+}
+
+function renderVocabMenu() {
+  const d = DATA[currentTopic];
+  const el = document.getElementById('sec-vocab');
+  el.innerHTML = `<div style="text-align:center;margin-bottom:16px">
+    <button onclick="renderTopicGrid('vocab')" style="background:none;border:none;color:var(--blue);cursor:pointer;font-size:14px;font-family:'Quicksand',sans-serif;font-weight:600">← Quay lại</button>
+  </div>
+  <div class="card" style="text-align:center">
+    <div style="font-size:48px;margin-bottom:8px">${d.emoji}</div>
+    <h2 style="font-family:'Nunito',sans-serif;color:var(--dark);margin:0 0 16px">${d.name}</h2>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button onclick="startMCQ()" style="background:var(--blue);color:#fff;border:none;padding:12px 24px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;font-family:'Quicksand',sans-serif">🎯 Multiple Choice</button>
+      <button onclick="startFill()" style="background:var(--pink);color:#fff;border:none;padding:12px 24px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;font-family:'Quicksand',sans-serif">✏️ Fill in the Blank</button>
+    </div>
+  </div>`;
+}
+
+// --- MCQ ---
+function startMCQ() {
+  currentGame = 'mcq'; mcqIndex = 0; mcqScore = 0; mcqAnswered = false;
+  renderMCQ();
+}
+function renderMCQ() {
+  const d = DATA[currentTopic];
+  const qs = d.mcq;
+  if(mcqIndex >= qs.length) { renderMCQResult(); return; }
+  const q = qs[mcqIndex];
+  const el = document.getElementById('sec-vocab');
+  const prog = ((mcqIndex)/qs.length)*100;
+  el.innerHTML = `<div style="text-align:center;margin-bottom:12px">
+    <button onclick="renderVocabMenu()" style="background:none;border:none;color:var(--blue);cursor:pointer;font-size:14px;font-family:'Quicksand',sans-serif;font-weight:600">← Quay lại</button>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <span class="badge badge-5">Câu ${mcqIndex+1}/${qs.length}</span>
+      <span style="font-weight:700;color:var(--pink)">Điểm: ${mcqScore}</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" style="width:${prog}%"></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px">
+      <h3 style="margin:0;color:var(--dark);font-size:17px;flex:1">${q.q}</h3>
+      <button onclick='speakWord(${JSON.stringify(q.q)})' style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">🔊 Speak</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px" id="mcq-opts">
+      ${q.opts.map((o,i) => `<button class="opt-btn" id="opt-${i}" onclick="checkMCQ(${i})" style="font-family:'Quicksand',sans-serif;font-size:15px"><span style="font-weight:700;color:var(--blue);margin-right:8px">${'ABCD'[i]}.</span> ${o}</button>`).join('')}
+    </div>
+    <div id="mcq-explain" style="display:none;margin-top:16px"></div>
+  </div>`;
+}
+function checkMCQ(idx) {
+  if(mcqAnswered) return;
+  mcqAnswered = true;
+  const q = DATA[currentTopic].mcq[mcqIndex];
+  const correct = idx === q.ans;
+  if(correct) {
+    mcqScore++;
+    playCorrect();
+    launchConfetti();
+  } else {
+    playWrong();
+  }
+  document.getElementById('opt-'+idx).classList.add(correct?'correct':'wrong');
+  if(!correct) document.getElementById('opt-'+q.ans).classList.add('correct');
+  document.getElementById('mcq-explain').style.display = 'block';
+  document.getElementById('mcq-explain').innerHTML = `<div class="hint-box">
+    <div style="font-weight:700;color:${correct?'#059669':'#dc2626'};margin-bottom:8px">${correct?'✅ Chính xác!':'❌ Sai rồi!'}</div>
+    <p style="margin:0;color:var(--dark);font-size:14px">${q.explain}</p>
+  </div>
+  <button onclick="nextMCQ()" style="margin-top:12px;background:var(--blue);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">Câu tiếp →</button>`;
+}
+function nextMCQ() { mcqIndex++; mcqAnswered = false; renderMCQ(); }
+function renderMCQResult() {
+  const total = DATA[currentTopic].mcq.length;
+  const pct = Math.round((mcqScore/total)*100);
+  document.getElementById('sec-vocab').innerHTML = `<div class="card" style="text-align:center">
+    <div style="font-size:48px;margin-bottom:12px">${pct>=80?'🎉':pct>=50?'👍':'💪'}</div>
+    <h2 style="font-family:'Nunito',sans-serif;color:var(--dark)">Kết quả Multiple Choice</h2>
+    <div style="font-size:32px;font-weight:800;color:var(--pink);margin:12px 0">${mcqScore}/${total}</div>
+    <p style="color:var(--gray)">${pct>=80?'Xuất sắc! Bạn nắm vững từ vựng rồi!':pct>=50?'Khá tốt! Hãy ôn thêm nhé!':'Cần luyện thêm! Đừng bỏ cuộc nhé!'}</p>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap">
+      <button onclick="startMCQ()" style="background:var(--blue);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">🔄 Làm lại</button>
+      <button onclick="startFill()" style="background:var(--pink);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">✏️ Fill in Blank</button>
+      <button onclick="renderVocabMenu()" style="background:#e2e8f0;color:var(--dark);border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">← Menu</button>
+    </div>
+  </div>`;
+}
+
+// --- FILL ---
+function startFill() {
+  currentGame = 'fill'; fillIndex = 0; fillScore = 0; fillAnswered = false;
+  renderFill();
+}
+function renderFill() {
+  const d = DATA[currentTopic];
+  const qs = d.fill;
+  if(fillIndex >= qs.length) { renderFillResult(); return; }
+  const q = qs[fillIndex];
+  const prog = ((fillIndex)/qs.length)*100;
+  document.getElementById('sec-vocab').innerHTML = `<div style="text-align:center;margin-bottom:12px">
+    <button onclick="renderVocabMenu()" style="background:none;border:none;color:var(--blue);cursor:pointer;font-size:14px;font-family:'Quicksand',sans-serif;font-weight:600">← Quay lại</button>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <span class="badge badge-6">Câu ${fillIndex+1}/${qs.length}</span>
+      <span style="font-weight:700;color:var(--pink)">Điểm: ${fillScore}</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" style="width:${prog}%"></div></div>
+    <div style="margin:16px 0">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px">
+        <div>
+          <p style="color:var(--gray);font-size:13px;margin:0 0 4px">Nghĩa tiếng Việt:</p>
+          <h3 style="color:var(--dark);margin:0 0 12px;font-size:18px">"${q.vi}"</h3>
+        </div>
+        <button onclick='speakWord(${JSON.stringify(q.vi)})' style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">🔊 Speak</button>
+      </div>
+      <p style="color:var(--blue);font-size:13px;margin:0 0 12px">💡 Gợi ý: <code style="background:var(--ltblue);padding:2px 8px;border-radius:4px">${q.hint}</code></p>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input type="text" id="fill-input" class="fill-input" placeholder="Nhập từ tiếng Anh..." onkeydown="if(event.key==='Enter')checkFill()">
+        <button onclick="checkFill()" style="background:var(--blue);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">Kiểm tra</button>
+      </div>
+    </div>
+    <div id="fill-explain" style="display:none;margin-top:16px"></div>
+  </div>`;
+  setTimeout(()=>{const inp=document.getElementById('fill-input');if(inp)inp.focus()},100);
+}
+function checkFill() {
+  if(fillAnswered) return;
+  fillAnswered = true;
+  const q = DATA[currentTopic].fill[fillIndex];
+  const inp = document.getElementById('fill-input');
+  const val = inp.value.trim().toLowerCase();
+  const correct = val === q.ans.toLowerCase();
+  if(correct) {
+    fillScore++;
+    playCorrect();
+    launchConfetti();
+  } else {
+    playWrong();
+  }
+  inp.classList.add(correct?'correct':'wrong');
+  inp.disabled = true;
+  const vocab = DATA[currentTopic].vocab.find(v => v.word.toLowerCase() === q.ans.toLowerCase());
+  document.getElementById('fill-explain').style.display = 'block';
+  document.getElementById('fill-explain').innerHTML = `<div class="hint-box">
+    <div style="font-weight:700;color:${correct?'#059669':'#dc2626'};margin-bottom:8px">${correct?'✅ Chính xác!':'❌ Sai rồi!'}</div>
+    <p style="margin:0 0 4px;font-weight:700;color:var(--dark)">Đáp án: ${q.ans}</p>
+    ${vocab?`<p style="margin:0 0 4px;color:var(--gray);font-size:13px">${vocab.ipa} • ${vocab.en}</p><p style="margin:0;font-size:13px;color:var(--dark)">📝 ${vocab.ex}</p>`:''}
+  </div>
+  <button onclick="nextFill()" style="margin-top:12px;background:var(--pink);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">Câu tiếp →</button>`;
+}
+function nextFill() { fillIndex++; fillAnswered = false; renderFill(); }
+function renderFillResult() {
+  const total = DATA[currentTopic].fill.length;
+  const pct = Math.round((fillScore/total)*100);
+  document.getElementById('sec-vocab').innerHTML = `<div class="card" style="text-align:center">
+    <div style="font-size:48px;margin-bottom:12px">${pct>=80?'🎉':pct>=50?'👍':'💪'}</div>
+    <h2 style="font-family:'Nunito',sans-serif;color:var(--dark)">Kết quả Fill in the Blank</h2>
+    <div style="font-size:32px;font-weight:800;color:var(--pink);margin:12px 0">${fillScore}/${total}</div>
+    <p style="color:var(--gray)">${pct>=80?'Tuyệt vời! Bạn nhớ từ rất tốt!':pct>=50?'Khá ổn! Hãy luyện thêm!':'Cố gắng thêm nhé! Practice makes perfect!'}</p>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap">
+      <button onclick="startFill()" style="background:var(--pink);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">🔄 Làm lại</button>
+      <button onclick="startMCQ()" style="background:var(--blue);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">🎯 Multiple Choice</button>
+      <button onclick="renderVocabMenu()" style="background:#e2e8f0;color:var(--dark);border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Quicksand',sans-serif">← Menu</button>
+    </div>
+  </div>`;
+}
+
+// ========== SPEAKING ==========
+function startSpeaking(topic) {
+  speakingTopic = topic;
+  renderSpeakingQuestions();
+}
+function renderSpeakingQuestions() {
+  const d = DATA[speakingTopic];
+  const el = document.getElementById('sec-speaking');
+  let h = `<div style="text-align:center;margin-bottom:12px">
+    <button onclick="renderTopicGrid('speaking')" style="background:none;border:none;color:var(--blue);cursor:pointer;font-size:14px;font-family:'Quicksand',sans-serif;font-weight:600">← Quay lại</button>
+  </div>
+  <div style="text-align:center;margin-bottom:16px">
+    <span style="font-size:36px">${d.emoji}</span>
+    <h2 style="font-family:'Nunito',sans-serif;color:var(--dark);margin:4px 0">${d.name} — Speaking Practice</h2>
+  </div>
+  <div id="savedAnswersSection" class="card" style="background:#f8fafc;border:1px solid #e2e8f0;padding:14px;border-radius:16px;margin-bottom:18px"></div>`;
+
+  d.speaking.forEach((sq, qi) => {
+    h += `<div class="card fade-in" style="animation-delay:${qi*0.1}s">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span style="background:var(--pink);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">Q${qi+1}</span>
+        <h3 style="margin:0;color:var(--dark);font-size:16px">${sq.q}</h3>
+      </div>
+
+      <!-- Vocab hint -->
+      <div style="margin-bottom:12px">
+        <span style="font-size:12px;color:var(--gray);font-weight:600">💡 Từ vựng gợi ý:</span>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+          ${sq.vocabHint.map(v=>`<button onclick='speakWord(${JSON.stringify(v)})' style="background:var(--ltpink);color:var(--pink);padding:2px 10px;border-radius:6px;font-size:13px;font-weight:600;border:none;cursor:pointer">🔊 ${v}</button>`).join('')}
+        </div>
+      </div>
+
+      <!-- Answer box -->
+      <div style="margin-bottom:12px">
+        <textarea id="answerBox-${speakingTopic}-${qi}" rows="3" placeholder="Type your answer..." style="width:100%;border:2px solid #e2e8f0;border-radius:10px;padding:10px;font-family:'Quicksand',sans-serif;font-size:14px;resize:vertical;outline:none;transition:border-color .2s" onfocus="this.style.borderColor='var(--pink)'" onblur="this.style.borderColor='#e2e8f0'"></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+          <button id="recordBtn-${speakingTopic}-${qi}" onclick="startRecording('${speakingTopic}', ${qi})" style="background:var(--pink);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">🎤 Record</button>
+          <button id="stopBtn-${speakingTopic}-${qi}" disabled onclick="stopRecording('${speakingTopic}', ${qi})" style="background:#ef4444;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">⏹ Stop</button>
+          <button id="speechToTextBtn-${speakingTopic}-${qi}" onclick="startSpeechToText('${speakingTopic}', ${qi})" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">🎙️ Speech-to-Text</button>
+          <a id="downloadLink-${speakingTopic}-${qi}" style="display:none;color:var(--blue);text-decoration:none;font-family:'Quicksand',sans-serif;font-size:13px">⬇ Download Recording</a>
+          <button id="saveAnswer-${speakingTopic}-${qi}" onclick="saveAnswer('${speakingTopic}', ${qi})" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">💾 Save Answer</button>
+        </div>
+
+        <!-- AI Feedback Section -->
+        <div id="feedback-${speakingTopic}-${qi}" style="margin-top:12px;padding:12px;border-radius:8px;background:#f8fafc;border:1px solid #e2e8f0;display:none"></div>
+      </div>
+
+      <!-- Collapsible sections -->
+      <div style="border-top:1px solid #f1f5f9;padding-top:12px">
+        <button onclick="toggleCollapse('samples-${speakingTopic}-${qi}')" style="background:none;border:none;cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;color:var(--blue);font-size:14px;padding:4px 0;display:flex;align-items:center;gap:4px;width:100%;text-align:left">
+          <i data-lucide="chevron-down" style="width:16px;height:16px" id="chevron-samples-${speakingTopic}-${qi}"></i>
+          ✅ Sample Answers
+        </button>
+        <div class="collapse-content" id="samples-${speakingTopic}-${qi}">
+          <div style="padding:8px 0;display:flex;flex-direction:column;gap:10px">
+            ${(() => {
+              const randomSample = sq.samples[Math.floor(Math.random() * sq.samples.length)];
+              return `<div style="padding:10px 12px;border-radius:10px;background:${randomSample.band==='5.5'?'#fffbeb':randomSample.band==='6.5'?'#f0fdf4':'#f5f3ff'}">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                  <span class="badge ${randomSample.band==='5.5'?'badge-5':randomSample.band==='6.5'?'badge-6':'badge-7'}">Band ${randomSample.band}</span>
+                  <button onclick='speakWord(${JSON.stringify(randomSample.text)})' style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:6px 10px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:12px">🔊 Listen</button>
+                </div>
+                <p style="margin:10px 0 0;font-size:14px;color:var(--dark);line-height:1.6">${randomSample.text}</p>
+              </div>`;
+            })()}
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #f1f5f9;padding-top:8px;margin-top:8px">
+        <button onclick="toggleCollapse('explain-${speakingTopic}-${qi}')" style="background:none;border:none;cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;color:var(--pink);font-size:14px;padding:4px 0;display:flex;align-items:center;gap:4px;width:100%;text-align:left">
+          <i data-lucide="chevron-down" style="width:16px;height:16px" id="chevron-explain-${speakingTopic}-${qi}"></i>
+          📝 Detailed Explanation
+        </button>
+        <div class="collapse-content" id="explain-${speakingTopic}-${qi}">
+          <div class="hint-box" style="margin-top:8px">
+            <p style="margin:0;font-size:14px;color:var(--dark);line-height:1.6">${sq.explanation}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Explanation Section -->
+      <div class="explanation" style="border-top:1px solid #f1f5f9;padding-top:12px;margin-top:12px">
+        <h3 style="color:var(--dark);font-size:16px;margin-bottom:8px">📘 Detailed Explanation</h3>
+        <div id="detailedExplanation-${speakingTopic}-${qi}" style="font-size:14px;color:var(--dark);line-height:1.6;margin-bottom:12px"></div>
+
+        <h4 style="color:var(--blue);font-size:14px;margin-bottom:4px">🇻🇳 Translation</h4>
+        <p id="translation-${speakingTopic}-${qi}" style="font-size:14px;color:var(--gray);line-height:1.6;margin-bottom:12px"></p>
+
+        <h4 style="color:var(--pink);font-size:14px;margin-bottom:4px">📌 Key Vocabulary</h4>
+        <ul id="vocabList-${speakingTopic}-${qi}" style="font-size:14px;color:var(--dark);line-height:1.6"></ul>
+      </div>
+    </div>`;
+  });
+
+  el.innerHTML = h;
+  lucide.createIcons();
+  renderSaved();
+
+  // Populate explanation sections
+  d.speaking.forEach((sq, qi) => {
+    const randomSample = sq.samples[Math.floor(Math.random() * sq.samples.length)];
+    // document.getElementById(`sampleAnswer-${speakingTopic}-${qi}`).innerText = randomSample.text;
+
+    // Add detailed explanation
+    const explanations = {
+      mirror: {
+        0: `
+          <b>look presentable</b> (adj): appearing neat and tidy<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>look presentable for work</li>
+            <li>look presentable before meetings</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>presentable (adj)</li>
+            <li>presentably (adv)</li>
+          </ul>
+          <b>Example:</b> I always try to look presentable when I go to job interviews.
+        `,
+        1: `
+          <b>a compact mirror</b> (n): a small portable mirror<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>carry a compact mirror</li>
+            <li>use a compact mirror</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>compact (adj)</li>
+            <li>compactly (adv)</li>
+          </ul>
+          <b>Example:</b> She always keeps a compact mirror in her purse.
+        `,
+        2: `
+          <b>come in handy</b> (v): to be useful<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>come in handy when</li>
+            <li>come in handy for</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>handy (adj)</li>
+            <li>handiness (n)</li>
+          </ul>
+          <b>Example:</b> An umbrella comes in handy on rainy days.
+        `,
+        3: `
+          <b>give the illusion</b> (v): create a false impression<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>give the illusion of</li>
+            <li>give the illusion that</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>illusion (n)</li>
+            <li>illusive (adj)</li>
+          </ul>
+          <b>Example:</b> Mirrors give the illusion that the room is bigger.
+        `
+      },
+      views: {
+        0: `
+          <b>stick with someone</b> (v): remain in memory<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>stick with me</li>
+            <li>stick with you</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>sticky (adj)</li>
+            <li>stickiness (n)</li>
+          </ul>
+          <b>Example:</b> That beautiful view has stuck with me ever since.
+        `,
+        1: `
+          <b>be drawn to</b> (v): be attracted to<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>be drawn to something</li>
+            <li>be drawn to someone</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>drawn (adj)</li>
+            <li>draw (v)</li>
+          </ul>
+          <b>Example:</b> I'm always drawn to mountain views.
+        `,
+        2: `
+          <b>rural areas</b> (n): countryside areas<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>rural areas/communities</li>
+            <li>live in rural areas</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>rural (adj)</li>
+            <li>rurality (n)</li>
+          </ul>
+          <b>Example:</b> I prefer the peaceful views in rural areas.
+        `,
+        3: `
+          <b>get the gist of</b> (v): understand main idea<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>get the gist of a text</li>
+            <li>quickly get the gist</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>gist (n)</li>
+          </ul>
+          <b>Example:</b> I usually skim articles to get the gist of the content.
+        `
+      },
+      childhood: {
+        0: `
+          <b>lean towards</b> (v): prefer<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>lean towards something</li>
+            <li>lean towards doing</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>leaning (n)</li>
+            <li>leans (v)</li>
+          </ul>
+          <b>Example:</b> I lean towards outdoor activities now.
+        `,
+        1: `
+          <b>a big part of</b> (n): important part<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>a big part of my life</li>
+            <li>a big part of childhood</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>part (n)</li>
+            <li>partial (adj)</li>
+          </ul>
+          <b>Example:</b> Playing outside was a big part of my childhood.
+        `,
+        2: `
+          <b>grow out of</b> (v): stop doing as you get older<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>grow out of something</li>
+            <li>grow out of habits</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>growth (n)</li>
+            <li>grows (v)</li>
+          </ul>
+          <b>Example:</b> I grew out of playing video games.
+        `,
+        3: `
+          <b>come in handy</b> (v): be useful<br><br>
+          <b>Collocations:</b>
+          <ul>
+            <li>come in handy when</li>
+            <li>come in handy for</li>
+          </ul>
+          <b>Word family:</b>
+          <ul>
+            <li>handy (adj)</li>
+            <li>handiness (n)</li>
+          </ul>
+          <b>Example:</b> An umbrella comes in handy on rainy days.
+        `
+      }
+    };
+
+    document.getElementById(`detailedExplanation-${speakingTopic}-${qi}`).innerHTML = explanations[speakingTopic][qi] || "Explanation not available.";
+
+    // Add translation (example - in real app, this would be proper translations)
+    const translations = {
+      mirror: {
+        0: "Tôi thích nhìn vào gương hàng ngày trước khi ra ngoài. Tôi muốn đảm bảo mình trông gọn gàng.",
+        1: "Vâng, tôi đã mua một chiếc gương nhỏ cầm tay vào năm ngoái. Nó rất hữu ích.",
+        2: "Vâng, tôi luôn mang theo một chiếc gương nhỏ trong túi. Nó rất tiện khi cần kiểm tra ngoại hình.",
+        3: "Vâng, tôi sẽ dùng gương để trang trí phòng. Gương làm cho phòng trông rộng hơn."
+      },
+      views: {
+        0: "Vâng, tôi đã thấy một khung cảnh đẹp và khó quên ở Đà Lạt. Phong cảnh rất đẹp.",
+        1: "Tôi thích khung cảnh ở đất nước của tôi hơn. Việt Nam có nhiều phong cảnh đa dạng.",
+        2: "Tôi thích khung cảnh ở vùng nông thôn hơn. Chúng yên bình.",
+        3: "Vâng, tôi thích chụp ảnh các khung cảnh khác nhau."
+      },
+      childhood: {
+        0: "Tôi thích chơi ngoài trời hơn là ở trong nhà.",
+        1: "Tôi thích chơi với bạn bè hơn là chơi một mình.",
+        2: "Tôi thích chơi thể thao hơn là đọc sách.",
+        3: "Tôi thích chơi game hơn là xem TV."
+      }
+    };
+
+    document.getElementById(`translation-${speakingTopic}-${qi}`).innerText = translations[speakingTopic][qi] || "Translation not available.";
+
+    // Add vocabulary list
+    const vocabLists = {
+      mirror: {
+        0: ["look presentable = trông gọn gàng", "neat = gọn gàng", "wrinkled = nhăn nheo"],
+        1: ["a compact mirror = gương nhỏ cầm tay", "a decorative item = vật trang trí", "nicely compliment = tôn lên vẻ đẹp"],
+        2: ["a compact mirror = gương nhỏ cầm tay", "come in handy = trở nên hữu ích", "look presentable = trông gọn gàng"],
+        3: ["a decorative item = vật trang trí", "nicely compliment = tôn lên vẻ đẹp", "give the illusion = tạo ảo giác"]
+      },
+      views: {
+        0: ["stick with someone = ở lại trong trí nhớ", "unforgettable = không thể quên", "scenery = phong cảnh"],
+        1: ["diverse landscapes = phong cảnh đa dạng", "be drawn to = bị thu hút bởi"],
+        2: ["urban areas = khu vực thành thị", "rural areas = khu vực nông thôn", "be drawn to = bị thu hút bởi"],
+        3: ["scenery = phong cảnh", "unforgettable = không thể quên", "stick with someone = ở lại trong trí nhớ"]
+      },
+      childhood: {
+        0: ["lean towards = thiên về", "break up the routine = phá vỡ sự nhàm chán"],
+        1: ["a big part of my childhood = phần lớn tuổi thơ"],
+        2: ["grow out of = lớn lên và bỏ dần"],
+        3: ["come in handy = trở nên hữu ích"]
+      }
+    };
+
+    const vocabList = vocabLists[speakingTopic][qi] || [];
+    document.getElementById(`vocabList-${speakingTopic}-${qi}`).innerHTML = vocabList.map(v => {
+      const parts = v.split(' = ');
+      return `<li style="display:flex;align-items:center;justify-content:space-between;gap:8px"><span><b>${parts[0]}</b> = ${parts[1]}</span><button onclick='speakWord(${JSON.stringify(parts[0])})' style="background:var(--ltpink);color:var(--pink);border:none;border-radius:8px;padding:4px 10px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:12px">🔊</button></li>`;
+    }).join('');
+
+    // Load saved answer
+    const savedAnswer = localStorage.getItem(`userAnswer-${speakingTopic}-${qi}`);
+    if (savedAnswer) {
+      document.getElementById(`answerBox-${speakingTopic}-${qi}`).value = savedAnswer;
+    }
+  });
+}
+
+function toggleCollapse(id) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.toggle('open');
+  const chevron = document.getElementById('chevron-'+id);
+  if(chevron) chevron.style.transform = el.classList.contains('open')?'rotate(180deg)':'rotate(0)';
+}
+
+// ========== MP3 CONVERSION ==========
+async function convertToMp3(webmBlob) {
+  const arrayBuffer = await webmBlob.arrayBuffer();
+  const audioCtx = new AudioContext();
+  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+  audioCtx.close();
+
+  const sampleRate = audioBuffer.sampleRate;
+  const pcm = audioBuffer.getChannelData(0); // mono
+  const int16 = new Int16Array(pcm.length);
+  for (let i = 0; i < pcm.length; i++) {
+    int16[i] = Math.max(-32768, Math.min(32767, pcm[i] * 32767));
+  }
+
+  const encoder = new lamejs.Mp3Encoder(1, sampleRate, 128);
+  const blockSize = 1152;
+  const mp3Parts = [];
+  for (let i = 0; i < int16.length; i += blockSize) {
+    const chunk = int16.subarray(i, i + blockSize);
+    const buf = encoder.encodeBuffer(chunk);
+    if (buf.length > 0) mp3Parts.push(new Uint8Array(buf));
+  }
+  const end = encoder.flush();
+  if (end.length > 0) mp3Parts.push(new Uint8Array(end));
+
+  return new Blob(mp3Parts, { type: 'audio/mpeg' });
+}
+
+// ========== RECORDING ==========
+// New recording functions
+let mediaRecorder;
+let audioChunks = [];
+let currentTopicQi = null;
+
+function startRecording(topic, qi) {
+  currentTopicQi = `${topic}-${qi}`;
+  const recordBtn = document.getElementById(`recordBtn-${topic}-${qi}`);
+  const stopBtn = document.getElementById(`stopBtn-${topic}-${qi}`);
+  const downloadLink = document.getElementById(`downloadLink-${topic}-${qi}`);
+
+  navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+
+      mediaRecorder.ondataavailable = event => {
+        audioChunks.push(event.data);
+      };
+
+      mediaRecorder.onstop = async () => {
+        const webmBlob = new Blob(audioChunks, { type: "audio/webm" });
+
+        // Convert WebM → MP3
+        const mp3Blob = await convertToMp3(webmBlob);
+        const url = URL.createObjectURL(mp3Blob);
+
+        downloadLink.href = url;
+        downloadLink.download = `answer-${topic}-${qi}.mp3`;
+        downloadLink.style.display = "inline";
+        downloadLink.innerText = "⬇ Download MP3";
+
+        localStorage.setItem(`audioURL-${topic}-${qi}`, url);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          localStorage.setItem(`audioBase64-${topic}-${qi}`, reader.result);
+        };
+        reader.readAsDataURL(mp3Blob);
+
+        stream.getTracks().forEach(track => track.stop());
+        await handleRecordedAudio(topic, qi, webmBlob);
+      };
+
+      mediaRecorder.start();
+      recordBtn.disabled = true;
+      stopBtn.disabled = false;
+    })
+    .catch(error => {
+      console.error("Error accessing microphone:", error);
+      alert("Could not access microphone. Please check permissions.");
+    });
+}
+
+function stopRecording(topic, qi) {
+  const recordBtn = document.getElementById(`recordBtn-${topic}-${qi}`);
+  const stopBtn = document.getElementById(`stopBtn-${topic}-${qi}`);
+
+  if (mediaRecorder && mediaRecorder.state === "recording") {
+    mediaRecorder.stop();
+  }
+
+  recordBtn.disabled = false;
+  stopBtn.disabled = true;
+}
+
+async function handleRecordedAudio(topic, qi, audioBlob) {
+  const answerBox = document.getElementById(`answerBox-${topic}-${qi}`);
+  const feedbackDiv = document.getElementById(`feedback-${topic}-${qi}`);
+  if (!answerBox || !feedbackDiv) return;
+
+  feedbackDiv.style.display = "block";
+  feedbackDiv.innerHTML = `<div style="color:var(--gray);">🎙️ Converting speech to text...</div>`;
+
+  const transcript = await speechToText(audioBlob);
+  if (!transcript) {
+    feedbackDiv.innerHTML = `<div style="color:#dc2626;">Unable to convert audio to text. Please check your Whisper backend.</div>`;
+    return;
+  }
+
+  answerBox.value = transcript;
+  await checkIELTS(transcript, topic, qi);
+}
+
+// Save text answer
+async function saveAnswer(topic, qi) {
+  const answerBox = document.getElementById(`answerBox-${topic}-${qi}`);
+  const text = answerBox.value.trim();
+  if (!text) {
+    alert("Please type or record an answer before saving.");
+    return;
+  }
+
+  localStorage.setItem(`userAnswer-${topic}-${qi}`, text);
+
+  let answers = JSON.parse(localStorage.getItem("answers") || "[]");
+  answers.unshift({
+    id: `saved-${Date.now()}-${Math.floor(Math.random()*10000)}`,
+    topic,
+    qi,
+    text,
+    savedAt: new Date().toISOString()
+  });
+  localStorage.setItem("answers", JSON.stringify(answers));
+
+  renderSaved();
+  checkGrammar(text, topic, qi);
+  await checkIELTS(text, topic, qi);
+  alert("Answer saved!");
+}
+
+function deleteSavedAnswer(id) {
+  const answers = JSON.parse(localStorage.getItem("answers") || "[]");
+  const filtered = answers.filter((item) => item.id !== id);
+  localStorage.setItem("answers", JSON.stringify(filtered));
+  renderSaved();
+}
+
+// Render saved answer ideas
+function renderSaved() {
+  let answers = JSON.parse(localStorage.getItem("answers") || "[]");
+  let updated = false;
+  answers = answers.map((item) => {
+    if (!item.id) {
+      updated = true;
+      return {
+        ...item,
+        id: `saved-${Date.now()}-${Math.floor(Math.random() * 10000)}`
+      };
+    }
+    return item;
+  });
+  if (updated) {
+    localStorage.setItem("answers", JSON.stringify(answers));
+  }
+  const section = document.getElementById('savedAnswersSection');
+  if (!section) return;
+
+  if (!answers.length) {
+    section.innerHTML = `<div style="color:var(--gray);font-size:14px;text-align:center">No saved ideas yet. Save your answer to collect multiple speaking ideas.</div>`;
+    return;
+  }
+
+  const showing = answers.slice(0, 10);
+  section.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+      <div>
+        <h4 style="margin:0;color:var(--dark);font-size:16px">💾 Saved Answer Ideas</h4>
+        <div style="font-size:13px;color:var(--gray);margin-top:4px">Showing ${showing.length} of ${answers.length} saved ideas</div>
+      </div>
+    </div>
+    ${showing.map((a, i) => `
+      <div style="padding:10px 12px;border-radius:14px;background:#fff;border:1px solid #e2e8f0;margin-bottom:10px">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+          <span style="font-size:13px;color:var(--gray)">Idea ${i + 1}</span>
+          <span style="font-size:13px;color:var(--blue)">[${a.topic} Q${a.qi + 1}]</span>
+          <span style="margin-left:auto;font-size:12px;color:var(--gray)">${new Date(a.savedAt).toLocaleString()}</span>
+        </div>
+        <p style="margin:0;color:var(--dark);line-height:1.6">${a.text}</p>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button onclick='speakWord(${JSON.stringify(a.text)})' style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">🔊 Listen</button>
+          <button onclick="deleteSavedAnswer('${a.id}')" style="background:#ef4444;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">❌ Delete</button>
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+// Grammar and Band checking
+function checkGrammar(text, topic, qi) {
+  const feedbackDiv = document.getElementById(`feedback-${topic}-${qi}`);
+  feedbackDiv.style.display = "block";
+
+  let band = "6.0";
+  let grammar = "Some basic errors possible";
+  let vocab = "Basic vocabulary used";
+  let suggestions = [];
+
+  // Band scoring logic
+  if (text.length > 30) {
+    band = "7.0";
+    grammar = "Generally correct with minor issues";
+  }
+
+  if (text.includes("look presentable") || text.includes("compact mirror") || text.includes("come in handy") ||
+      text.includes("stick with") || text.includes("drawn to") || text.includes("get the gist") ||
+      text.includes("lean towards")) {
+    band = "8.0";
+    vocab = "Good use of topic-specific vocabulary";
+    grammar = "Very good grammar and vocabulary";
+  }
+
+  if (text.length > 60 && (text.includes("wouldn't say") || text.includes("actually") || text.includes("for sure") ||
+      text.includes("make it a point") || text.includes("tend to"))) {
+    band = "9.0";
+    grammar = "Excellent grammar and natural expressions";
+    vocab = "Advanced vocabulary and collocations";
+  }
+
+  // Suggestions
+  if (!text.includes("because") && !text.includes("so") && !text.includes("although")) {
+    suggestions.push("Use more linking words (because, although, however)");
+  }
+  if (text.split(' ').length < 20) {
+    suggestions.push("Add more details and examples");
+  }
+  if (!text.match(/[.!?]$/)) {
+    suggestions.push("End sentences with proper punctuation");
+  }
+
+  feedbackDiv.innerHTML = `
+    <h4 style="color:var(--pink);margin-bottom:8px">📊 Evaluation</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+        <strong>Band Score:</strong> <span style="color:${band >= '8.0' ? 'green' : band >= '7.0' ? 'orange' : 'red'};font-weight:bold">${band}</span>
+      </div>
+      <div>
+        <strong>Word Count:</strong> ${text.split(' ').length} words
+      </div>
+    </div>
+    <div style="margin-bottom:8px">
+      <strong>Grammar:</strong> ${grammar}
+    </div>
+    <div style="margin-bottom:8px">
+      <strong>Vocabulary:</strong> ${vocab}
+    </div>
+    ${suggestions.length > 0 ? `
+    <div style="margin-bottom:8px">
+      <strong>Suggestions:</strong>
+      <ul style="margin:4px 0;padding-left:20px">
+        ${suggestions.map(s => `<li>${s}</li>`).join('')}
+      </ul>
+    </div>
+    ` : ''}
+    <div style="font-size:12px;color:var(--gray)">
+      💾 <strong>Your Answer:</strong> ${text || "No answer saved"}
+    </div>
+  `;
+}
+
+// Speak function for pronunciation
+function speakWord(word) {
+  if (!word) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(word);
+
+  // Choose a better voice
+  const voices = speechSynthesis.getVoices();
+  const enVoice = voices.find(v => v.lang === "en-US" && v.name.toLowerCase().includes("female"));
+  if (enVoice) {
+    utterance.voice = enVoice;
+  } else {
+    const fallbackVoice = voices.find(v => v.lang === "en-US");
+    if (fallbackVoice) utterance.voice = fallbackVoice;
+  }
+
+  utterance.rate = 0.95;
+  utterance.pitch = 1;
+  speechSynthesis.speak(utterance);
+}
+
+function playCorrect() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.value = 880;
+  gain.gain.value = 0.08;
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.12);
+}
+
+function playWrong() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = 220;
+  gain.gain.value = 0.12;
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.16);
+}
+
+function launchConfetti() {
+  const count = 20;
+  for (let i = 0; i < count; i++) {
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.width = '10px';
+    confetti.style.height = '10px';
+    confetti.style.background = `hsl(${Math.random() * 360}, 90%, 60%)`;
+    confetti.style.left = `${Math.random() * 100}vw`;
+    confetti.style.top = `-10px`;
+    confetti.style.opacity = '0.9';
+    confetti.style.borderRadius = '3px';
+    confetti.style.pointerEvents = 'none';
+    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+    confetti.style.transition = 'transform 1.2s ease-out, top 1.2s ease-out, opacity 1.2s ease-out';
+    document.body.appendChild(confetti);
+    setTimeout(() => {
+      confetti.style.top = `${window.innerHeight + 20}px`;
+      confetti.style.opacity = '0';
+      confetti.style.transform = `rotate(${Math.random() * 720}deg)`;
+    }, 20);
+    setTimeout(() => document.body.removeChild(confetti), 1400);
+  }
+}
+
+// Speech-to-Text functionality
+function startSpeechToText(topic, qi) {
+  const answerBox = document.getElementById(`answerBox-${topic}-${qi}`);
+  const feedbackDiv = document.getElementById(`feedback-${topic}-${qi}`);
+
+  if (!('webkitSpeechRecognition' in window)) {
+    alert('Speech recognition not supported in this browser. Please use Chrome or Edge.');
+    return;
+  }
+
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onstart = function() {
+    answerBox.placeholder = "Listening... Speak now!";
+    answerBox.style.borderColor = "var(--pink)";
+  };
+
+  recognition.onresult = async function(event) {
+    const transcript = event.results[0][0].transcript;
+    answerBox.value = transcript;
+    answerBox.placeholder = "Type your answer...";
+    answerBox.style.borderColor = "#e2e8f0";
+
+    await checkIELTS(transcript, topic, qi);
+  };
+
+  recognition.onerror = function(event) {
+    console.error('Speech recognition error:', event.error);
+    answerBox.placeholder = "Type your answer...";
+    answerBox.style.borderColor = "#e2e8f0";
+    alert('Speech recognition error. Please try again.');
+  };
+
+  recognition.onend = function() {
+    answerBox.placeholder = "Type your answer...";
+    answerBox.style.borderColor = "#e2e8f0";
+  };
+
+  recognition.start();
+}
+
+// AI Feedback analysis
+// Backend endpoints expected:
+// POST /api/whisper  -> returns { text: string }
+// POST /api/check-ielts -> returns JSON with band, fluency, vocabulary, grammar, pronunciation, mistakes, improved_answer, translation_vi
+// Prompt should follow the IELTS examiner structure (Fluency, Lexical Resource, Grammar, Pronunciation).
+async function checkIELTS(text, topic, qi) {
+  const feedbackDiv = document.getElementById(`feedback-${topic}-${qi}`);
+  if (!feedbackDiv) return;
+  feedbackDiv.style.display = "block";
+  feedbackDiv.innerHTML = `<div style="color:var(--gray);">🤖 Sending answer to IELTS AI evaluator...</div>`;
+
+  const payload = { answer: text };
+  try {
+    const response = await fetch("/api/check-ielts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error(`AI endpoint returned ${response.status}`);
+    }
+
+    const data = await response.json();
+    renderAI(data, feedbackDiv);
+  } catch (error) {
+    console.warn("AI evaluation failed, using local fallback:", error);
+    const fallback = fakeIeltsAnalysis(text);
+    renderAI(fallback, feedbackDiv, true);
+  }
+}
+
+async function speechToText(audioBlob) {
+  try {
+    const formData = new FormData();
+    formData.append("file", audioBlob, "audio.webm");
+    formData.append("model", "whisper-1");
+
+    const response = await fetch("/api/whisper", {
+      method: "POST",
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error(`Whisper endpoint returned ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.text || "";
+  } catch (error) {
+    console.error("Whisper error:", error);
+    return "";
+  }
+}
+
+function renderAI(data, feedbackDiv, fallback = false) {
+  const mistakesList = Array.isArray(data.mistakes) ? data.mistakes.map(m => `<li>${m}</li>`).join('') : '';
+  feedbackDiv.innerHTML = `
+    <h4 style="color:var(--pink);margin-bottom:8px">🎯 IELTS Evaluation ${fallback ? ' (Local fallback)' : ''}</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+        <strong>Band Score:</strong> <span style="color:${parseFloat(data.band) >= 8.0 ? 'green' : parseFloat(data.band) >= 7.0 ? 'orange' : 'red'};font-weight:bold">${data.band}</span>
+      </div>
+      <div>
+        <strong>Word Count:</strong> ${data.answer ? data.answer.split(' ').length : 0} words
+      </div>
+    </div>
+    <div style="margin-bottom:8px"><strong>Fluency:</strong> ${data.fluency}</div>
+    <div style="margin-bottom:8px"><strong>Vocabulary:</strong> ${data.vocabulary}</div>
+    <div style="margin-bottom:8px"><strong>Grammar:</strong> ${data.grammar}</div>
+    <div style="margin-bottom:8px"><strong>Pronunciation:</strong> ${data.pronunciation}</div>
+    ${mistakesList ? `<div style="margin-bottom:8px"><strong>Mistakes:</strong><ul style="margin:4px 0;padding-left:20px">${mistakesList}</ul></div>` : ''}
+    ${data.improved_answer ? `<div style="margin-bottom:8px"><strong>Band 8.5+ sample:</strong><p style="background:#f0f9ff;padding:8px;border-radius:4px;margin:4px 0">${data.improved_answer}</p><button onclick='speakWord(${JSON.stringify(data.improved_answer)})' style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-family:'Quicksand',sans-serif;font-size:13px">🔊 Listen</button></div>` : ''}
+    ${data.translation_vi ? `<div style="font-size:12px;color:var(--gray)"><strong>🇻🇳 Translation:</strong> ${data.translation_vi}</div>` : ''}
+  `;
+}
+
+function fakeIeltsAnalysis(text) {
+  const lower = text.toLowerCase();
+  let band = 6.0;
+  let fluency = "Fair fluency with occasional hesitation.";
+  let vocabulary = "Basic vocabulary; try more topic-specific collocations.";
+  let grammar = "Some sentence structure issues present.";
+  let pronunciation = "Pronunciation is generally understandable.";
+  const mistakes = [];
+
+  if (text.length > 40) band = 7.0;
+  if (lower.includes("lean towards") || lower.includes("get the gist") || lower.includes("come in handy")) {
+    band = 8.0;
+    vocabulary = "Good use of collocations and phrases.";
+    grammar = "Mostly accurate grammar.";
+  }
+  if (text.length > 80 && lower.includes("however") && lower.includes("although")) {
+    band = 8.5;
+    fluency = "Smooth fluency with good cohesion.";
+    grammar = "Strong grammatical control.";
+  }
+  if (lower.includes("presentable")) {
+    pronunciation = "Check the word 'presentable' → /prɪˈzentəbl/.";
+  }
+  if (lower.includes("gist")) {
+    mistakes.push("Check pronunciation of 'gist' → /dʒɪst/.");
+  }
+  if (lower.includes("towards")) {
+    mistakes.push("Check pronunciation of 'towards' → /təˈwɔːdz/.");
+  }
+
+  return {
+    band: band.toFixed(1),
+    fluency,
+    vocabulary,
+    grammar,
+    pronunciation,
+    mistakes,
+    improved_answer: text ? `I tend to lean towards scanning because it helps me get the gist of the information quickly.` : "",
+    translation_vi: text ? "Tôi có xu hướng đọc lướt vì nó giúp tôi nắm được ý chính nhanh chóng." : "",
+    answer: text
+  };
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[tag]));
+}
+
+// ========== VOCAB LIST ==========
+function renderVocabList() {
+  const el = document.getElementById('sec-list');
+  let h = `<h2 style="font-family:'Nunito',sans-serif;text-align:center;margin:8px 0 16px;color:var(--dark);font-size:22px">📖 Tổng Hợp Từ Vựng</h2>`;
+
+  TOPICS.forEach(t => {
+    const d = DATA[t];
+    h += `<div class="card" style="margin-bottom:16px">
+      <button onclick="toggleCollapse('vlist-${t}')" style="background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;color:var(--dark);font-size:18px;padding:0;display:flex;align-items:center;gap:8px;width:100%;text-align:left">
+        <span style="font-size:28px">${d.emoji}</span>
+        ${d.name}
+        <span style="margin-left:auto;color:var(--gray);font-size:13px;font-weight:400">${d.vocab.length} từ</span>
+        <i data-lucide="chevron-down" style="width:18px;height:18px;color:var(--gray)" id="chevron-vlist-${t}"></i>
+      </button>
+      <div class="collapse-content" id="vlist-${t}">
+        <div style="margin-top:12px">
+          ${d.vocab.map(v => `<div class="vocab-row">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span style="font-weight:700;color:var(--dark);font-size:15px">${v.word}</span>
+              <span class="tag ${v.pos==='n'?'tag-n':v.pos==='v'?'tag-v':'tag-adj'}">${v.pos}</span>
+              <span class="ipa">${v.ipa}</span>
+            </div>
+            <div style="margin-top:4px">
+              <span style="color:var(--pink);font-weight:600;font-size:13px">🇻🇳 ${v.vi}</span>
+              <span style="color:var(--gray);font-size:13px;margin-left:8px">• ${v.en}</span>
+            </div>
+            <div style="margin-top:4px;font-size:13px;color:var(--dark);font-style:italic">📝 "${v.ex}"</div>
+            ${v.coll?`<div style="margin-top:2px;font-size:12px;color:var(--blue)">🔗 Collocations: ${v.coll}</div>`:''}
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  });
+
+  el.innerHTML = h;
+  lucide.createIcons();
+}
+
+// ========== INIT ==========
+const defaultConfig = {
+  app_title: 'SPEAKING 1',
+  background_color: '#e0edff',
+  surface_color: '#ffffff',
+  text_color: '#1e293b',
+  primary_action_color: '#e91e8c',
+  secondary_action_color: '#2563eb',
+  font_family: 'Quicksand',
+  font_size: 16
+};
+
+function applyConfig(config) {
+  const t = config.app_title || defaultConfig.app_title;
+  const el = document.getElementById('appTitle');
+  if(el) el.textContent = t;
+
+  const bg = config.background_color || defaultConfig.background_color;
+  const sf = config.surface_color || defaultConfig.surface_color;
+  const tx = config.text_color || defaultConfig.text_color;
+  const pa = config.primary_action_color || defaultConfig.primary_action_color;
+  const sa = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+  document.documentElement.style.setProperty('--pink', pa);
+  document.documentElement.style.setProperty('--blue', sa);
+  document.documentElement.style.setProperty('--white', sf);
+  document.documentElement.style.setProperty('--dark', tx);
+  document.documentElement.style.setProperty('--ltpink', pa + '20');
+  document.documentElement.style.setProperty('--ltblue', sa + '20');
+
+  const scr = document.querySelector('.scr');
+  if(scr) scr.style.background = `linear-gradient(135deg, ${sa}20 0%, ${pa}20 50%, ${sa}20 100%)`;
+
+  const ff = config.font_family || defaultConfig.font_family;
+  const fs = config.font_size || defaultConfig.font_size;
+  document.body.style.fontFamily = `${ff}, Quicksand, sans-serif`;
+  document.body.style.fontSize = fs + 'px';
+}
+
+if(window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => { applyConfig(config); },
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        {get:()=>config.background_color||defaultConfig.background_color, set:v=>{config.background_color=v;window.elementSdk.setConfig({background_color:v})}},
+        {get:()=>config.surface_color||defaultConfig.surface_color, set:v=>{config.surface_color=v;window.elementSdk.setConfig({surface_color:v})}},
+        {get:()=>config.text_color||defaultConfig.text_color, set:v=>{config.text_color=v;window.elementSdk.setConfig({text_color:v})}},
+        {get:()=>config.primary_action_color||defaultConfig.primary_action_color, set:v=>{config.primary_action_color=v;window.elementSdk.setConfig({primary_action_color:v})}},
+        {get:()=>config.secondary_action_color||defaultConfig.secondary_action_color, set:v=>{config.secondary_action_color=v;window.elementSdk.setConfig({secondary_action_color:v})}}
+      ],
+      borderables: [],
+      fontEditable: {get:()=>config.font_family||defaultConfig.font_family, set:v=>{config.font_family=v;window.elementSdk.setConfig({font_family:v})}},
+      fontSizeable: {get:()=>config.font_size||defaultConfig.font_size, set:v=>{config.font_size=v;window.elementSdk.setConfig({font_size:v})}}
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ["app_title", config.app_title || defaultConfig.app_title]
+    ])
+  });
+}
+
+applyConfig(defaultConfig);
+showSection('vocab');
+lucide.createIcons();
+window.addEventListener('DOMContentLoaded', renderSaved);
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f5fc782e72c09e7',t:'MTc3NzgxNjY5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
